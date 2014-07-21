@@ -41,14 +41,14 @@ func SyncDB() {
 
 //连接数据库
 func ConnectDB() {
-	db_type := beego.AppConfig.String("db_type")
-	db_host := beego.AppConfig.String("db_host")
-	db_port := beego.AppConfig.String("db_port")
-	db_user := beego.AppConfig.String("db_user")
-	db_pass := beego.AppConfig.String("db_pass")
-	db_name := beego.AppConfig.String("db_name")
-	db_path := beego.AppConfig.String("db_path")
-	db_sslmode := beego.AppConfig.String("db_sslmode")
+	db_type := beego.AppConfig.String("db::type")
+	db_host := beego.AppConfig.String("db::host")
+	db_port := beego.AppConfig.String("db::port")
+	db_user := beego.AppConfig.String("db::user")
+	db_pass := beego.AppConfig.String("db::pass")
+	db_name := beego.AppConfig.String("db::name")
+	db_path := beego.AppConfig.String("db::path")
+	db_sslmode := beego.AppConfig.String("db::sslmode")
 
 	var datasource string
 
@@ -76,14 +76,14 @@ func ConnectDB() {
 
 //创建数据库
 func createDB() {
-	db_type := beego.AppConfig.String("db_type")
-	db_host := beego.AppConfig.String("db_host")
-	db_port := beego.AppConfig.String("db_port")
-	db_user := beego.AppConfig.String("db_user")
-	db_pass := beego.AppConfig.String("db_pass")
-	db_name := beego.AppConfig.String("db_name")
-	db_path := beego.AppConfig.String("db_path")
-	db_sslmode := beego.AppConfig.String("db_sslmode")
+	db_type := beego.AppConfig.String("db::type")
+	db_host := beego.AppConfig.String("db::host")
+	db_port := beego.AppConfig.String("db::port")
+	db_user := beego.AppConfig.String("db::user")
+	db_pass := beego.AppConfig.String("db::pass")
+	db_name := beego.AppConfig.String("db::name")
+	db_path := beego.AppConfig.String("db::path")
+	db_sslmode := beego.AppConfig.String("db::sslmode")
 
 	var datasource string
 	var sqlstring string
