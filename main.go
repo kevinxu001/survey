@@ -16,11 +16,11 @@ const (
 
 func main() {
 	// 初始化系统参数
-	beego.Info("Start init system...")
+	beego.Info("Start init survey system...")
 	initialize()
 	beego.Info("Init system successful")
 
-	beego.Info("Start system server...")
+	beego.Info("Start survey system server...")
 	beego.Run()
 }
 

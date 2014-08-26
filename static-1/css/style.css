@@ -1,0 +1,46 @@
+.backToTop {
+	display: none;
+	text-align: center;
+	position: fixed;
+	_position: absolute;
+	right: 10px;
+	bottom: 100px;
+	_bottom: "auto";
+	cursor: pointer;
+	bottom: 20px;
+	right: 20px;
+}
+.btn-circle.btn-lg {
+	width: 40px;
+	height: 40px;
+	font-size: 20px;
+	line-height: 20px;
+	padding: 8px 0;
+	border-radius: 50%;
+	-moz-border-radius: 50%;
+	-webkit-border-radius: 50%
+}
+.loginBox {
+	width: 200px;
+	height: 300px;
+	padding: 0 20px;
+	border: 1px solid #fff;
+	color: #000;
+	margin-top: 40px;
+	border-radius: 8px;
+	background: white;
+	box-shadow: 0 0 15px #222;
+	background: -moz-linear-gradient(top, #fff, #efefef 8%);
+	background: -webkit-gradient(linear, 0 0, 0 100%, from(#f6f6f6), to(#f4f4f4));
+	font: 11px/1.5em;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -100px;
+	margin-top: -150px;
+}
+.loginBox h2 {
+	height: 40px;
+	font-size: 20px;
+	font-weight: normal;
+}

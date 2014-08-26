@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta charset="utf-8" />
+	<title>{{ .SiteName }}</title>
+
+	<meta name="description" content="" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+	<!-- bootstrap & fontawesome -->
+	<link rel="stylesheet" href="/static/ace1.3.1/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="/static/ace1.3.1/css/font-awesome.min.css" />
+
+	<!-- page specific plugin styles -->
+
+	<!-- text fonts -->
+	<link rel="stylesheet" href="/static/ace1.3.1/css/ace-fonts.css" />
+
+	<!-- ace styles -->
+	<link rel="stylesheet" href="/static/ace1.3.1/css/ace.min.css" id="main-ace-style" />
+
+	<!--[if lte IE 9]>
+	<link rel="stylesheet" href="/static/ace1.3.1/css/ace-part2.min.css" />
+	<![endif]-->
+	<link rel="stylesheet" href="/static/ace1.3.1/css/ace-skins.min.css" />
+	<link rel="stylesheet" href="/static/ace1.3.1/css/ace-rtl.min.css" />
+
+	<!--[if lte IE 9]>
+	<link rel="stylesheet" href="/static/ace1.3.1/css/ace-ie.min.css" />
+	<![endif]-->
+
+	<!-- inline styles related to this page -->
+
+	<!-- ace settings handler -->
+	<script src="/static/ace1.3.1/js/ace-extra.min.js"></script>
+
+	<!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
+
+	<!--[if lte IE 8]>
+	<script src="/static/ace1.3.1/js/html5shiv.min.js"></script>
+	<script src="/static/ace1.3.1/js/respond.min.js"></script>
+	<![endif]-->
+</head>
+
+<body class="no-skin">
+	<!-- #section:basics/navbar.layout -->
+	<div id="navbar" class="navbar navbar-default">
+		<script type="text/javascript">try{ace.settings.check('navbar' , 'fixed')}catch(e){}</script>
+
+		<div class="navbar-container" id="navbar-container">
+			<!-- #section:basics/sidebar.mobile.toggle -->
+			<button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler">
+				<span class="sr-only">Toggle sidebar</span>
+
+				<span class="icon-bar"></span>
+
+				<span class="icon-bar"></span>
+
+				<span class="icon-bar"></span>
+			</button>
+
+			<!-- /section:basics/sidebar.mobile.toggle -->
+			<div class="navbar-header pull-left">
+				<!-- #section:basics/navbar.layout.brand -->
+				<a href="#" class="navbar-brand">
+					<small> <i class="fa fa-leaf"></i>
+						{{ .SiteName }}
+					</small>
+				</a>
+
+				<!-- /section:basics/navbar.layout.brand -->
+
+				<!-- #section:basics/navbar.toggle -->
+
+				<!-- /section:basics/navbar.toggle -->
+			</div>
+
+			<!-- #section:basics/navbar.dropdown -->
+			<div class="navbar-buttons navbar-header pull-right" role="navigation">
+				<ul class="nav ace-nav">
+					<li class="grey">
+						<a data-toggle="dropdown" class="dropdown-toggle" href="#"> <i class="ace-icon fa fa-tasks"></i>
+							<span class="badge badge-grey">4</span>
+						</a>
+
+						<ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
+							<li class="dropdown-header">
+								<i class="ace-icon fa fa-check"></i>
+								4个待办任务
+							</li>
+
+							<li>
+								<a href="#">
+									<div class="clearfix">
+										<span class="pull-left">项目进度</span>
+										<span class="pull-right">65%</span>
+									</div>
+
+									<div class="progress progress-mini">
+										<div style="width:65%" class="progress-bar"></div>
+									</div>
+								</a>
+							</li>
+
+							<li>
+								<a href="#">
+									<div class="clearfix">
+										<span class="pull-left">硬件更新进度</span>
+										<span class="pull-right">35%</span>
+									</div>
+
+									<div class="progress progress-mini">
+										<div style="width:35%" class="progress-bar progress-bar-danger"></div>
+									</div>
+								</a>
+							</li>
+
+							<li>
+								<a href="#">
+									<div class="clearfix">
+										<span class="pull-left">工作量</span>
+										<span class="pull-right">15%</span>
+									</div>
+
+									<div class="progress progress-mini">
+										<div style="width:15%" class="progress-bar progress-bar-warning"></div>
+									</div>
+								</a>
+							</li>
+
+							<li>
+								<a href="#">
+									<div class="clearfix">
+										<span class="pull-left">错误修正</span>
+										<span class="pull-right">90%</span>
+									</div>
+
+									<div class="progress progress-mini progress-striped active">
+										<div style="width:90%" class="progress-bar progress-bar-success"></div>
+									</div>
+								</a>
+							</li>
+
+							<li class="dropdown-footer">
+								<a href="#">
+									查看更多待办任务
+									<i class="ace-icon fa fa-arrow-right"></i>
+								</a>
+							</li>
+						</ul>
+					</li>
+
+					<li class="purple">
+						<a data-toggle="dropdown" class="dropdown-toggle" href="#">
+							<i class="ace-icon fa fa-bell icon-animated-bell"></i>
+							<span class="badge badge-important">8</span>
+						</a>
+
+						<ul class="dropdown-menu-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-close">
+							<li class="dropdown-header">
+								<i class="ace-icon fa fa-exclamation-triangle"></i>
+								8个通知
+							</li>
+
+							<li>
+								<a href="#">
+									<div class="clearfix">
+										<span class="pull-left">
+											<i class="btn btn-xs no-hover btn-pink fa fa-comment"></i>
+											新回复
+										</span>
+										<span class="pull-right badge badge-info">+12</span>
+									</div>
+								</a>
+							</li>
+
+							<li>
+								<a href="#">
+									<i class="btn btn-xs btn-primary fa fa-user"></i>
+									更新系统。。。
+								</a>
+							</li>
+
+							<li>
+								<a href="#">
+									<div class="clearfix">
+										<span class="pull-left">
+											<i class="btn btn-xs no-hover btn-success fa fa-shopping-cart"></i>
+											新任务
+										</span>
+										<span class="pull-right badge badge-success">+8</span>
+									</div>
+								</a>
+							</li>
+
+							<li>
+								<a href="#">
+									<div class="clearfix">
+										<span class="pull-left">
+											<i class="btn btn-xs no-hover btn-info fa fa-twitter"></i>
+											跟踪情况
+										</span>
+										<span class="pull-right badge badge-info">+11</span>
+									</div>
+								</a>
+							</li>
+
+							<li class="dropdown-footer">
+								<a href="#">
+									查看所有通知
+									<i class="ace-icon fa fa-arrow-right"></i>
+								</a>
+							</li>
+						</ul>
+					</li>
+
+					<li class="green">
+						<a data-toggle="dropdown" class="dropdown-toggle" href="#">
+							<i class="ace-icon fa fa-envelope icon-animated-vertical"></i>
+							<span class="badge badge-success">5</span>
+						</a>
+
+						<ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
+							<li class="dropdown-header">
+								<i class="ace-icon fa fa-envelope-o"></i>
+								5个消息
+							</li>
+
+							<li class="dropdown-content">
+								<ul class="dropdown-menu dropdown-navbar">
+									<li>
+										<a href="#">
+											<img src="/static/ace1.3.1/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
+											<span class="msg-body">
+												<span class="msg-title">
+													<span class="blue">Alex:</span>
+													大家好
+												</span>
+
+												<span class="msg-time">
+													<i class="ace-icon fa fa-clock-o"></i>
+													<span>刚才</span>
+												</span>
+											</span>
+										</a>
+									</li>
+
+									<li>
+										<a href="#">
+											<img src="/static/ace1.3.1/avatars/avatar3.png" class="msg-photo" alt="Susan's Avatar" />
+											<span class="msg-body">
+												<span class="msg-title">
+													<span class="blue">Susan:</span>
+													大家好2
+												</span>
+
+												<span class="msg-time">
+													<i class="ace-icon fa fa-clock-o"></i>
+													<span>20分钟之前</span>
+												</span>
+											</span>
+										</a>
+									</li>
+
+									<li>
+										<a href="#">
+											<img src="/static/ace1.3.1/avatars/avatar4.png" class="msg-photo" alt="Bob's Avatar" />
+											<span class="msg-body">
+												<span class="msg-title">
+													<span class="blue">Bob:</span>
+													大家好3
+												</span>
+
+												<span class="msg-time">
+													<i class="ace-icon fa fa-clock-o"></i>
+													<span>下午 3:15</span>
+												</span>
+											</span>
+										</a>
+									</li>
+
+									<li>
+										<a href="#">
+											<img src="/static/ace1.3.1/avatars/avatar2.png" class="msg-photo" alt="Kate's Avatar" />
+											<span class="msg-body">
+												<span class="msg-title">
+													<span class="blue">Kate:</span>
+													不知道了
+												</span>
+
+												<span class="msg-time">
+													<i class="ace-icon fa fa-clock-o"></i>
+													<span>下午 1:24</span>
+												</span>
+											</span>
+										</a>
+									</li>
+
+									<li>
+										<a href="#">
+											<img src="/static/ace1.3.1/avatars/avatar5.png" class="msg-photo" alt="Fred's Avatar" />
+											<span class="msg-body">
+												<span class="msg-title">
+													<span class="blue">Fred:</span>
+													又一段话
+												</span>
+
+												<span class="msg-time">
+													<i class="ace-icon fa fa-clock-o"></i>
+													<span>上午 10:09</span>
+												</span>
+											</span>
+										</a>
+									</li>
+								</ul>
+							</li>
+
+							<li class="dropdown-footer">
+								<a href="inbox.html">
+									查看所有消息
+									<i class="ace-icon fa fa-arrow-right"></i>
+								</a>
+							</li>
+						</ul>
+					</li>
+
+					<!-- #section:basics/navbar.user_menu -->
+					<li class="light-blue">
+						<a data-toggle="dropdown" href="#" class="dropdown-toggle">
+							<img class="nav-user-photo" src="/static/ace1.3.1/avatars/user.jpg" alt="Jason's Photo" />
+							<span class="user-info">
+								<small>欢迎，</small>
+								管理员
+							</span>
+
+							<i class="ace-icon fa fa-caret-down"></i>
+						</a>
+
+						<ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+							<li>
+								<a href="#">
+									<i class="ace-icon fa fa-cog"></i>
+									设置
+								</a>
+							</li>
+
+							<li>
+								<a href="profile.html">
+									<i class="ace-icon fa fa-user"></i>
+									用户信息
+								</a>
+							</li>
+
+							<li class="divider"></li>
+
+							<li>
+								<a href="#">
+									<i class="ace-icon fa fa-power-off"></i>
+									退出
+								</a>
+							</li>
+						</ul>
+					</li>
+
+					<!-- /section:basics/navbar.user_menu -->
+				</ul>
+			</div>
+
+			<!-- /section:basics/navbar.dropdown -->
+		</div>
+		<!-- /.navbar-container -->
+	</div>
+
+	<!-- /section:basics/navbar.layout -->
+	<div class="main-container" id="main-container">
+		<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+		{{template "layout/sidebar.html" .}}
+		<div class="main-content">
+			<!-- #section:basics/content.breadcrumbs -->
+			<div class="breadcrumbs" id="breadcrumbs">
+				<script type="text/javascript">try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}</script>
+
+				<ul class="breadcrumb">
+					<li>
+						<i class="ace-icon fa fa-home home-icon"></i>
+						<a href="#">主页</a>
+					</li>
+
+					<li>
+						<a href="#">系统管理</a>
+					</li>
+					<li class="active">组织机构</li>
+				</ul>
+				<!-- /.breadcrumb -->
+
+				<!-- #section:basics/content.searchbox -->
+				<div class="nav-search" id="nav-search">
+					<form class="form-search">
+						<span class="input-icon">
+							<input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
+							<i class="ace-icon fa fa-search nav-search-icon"></i>
+						</span>
+					</form>
+				</div>
+				<!-- /.nav-search -->
+
+				<!-- /section:basics/content.searchbox -->
+			</div>
+
+			<!-- /section:basics/content.breadcrumbs -->
+			<div class="page-content">
+				{{template "layout/acesetting.html"}}
+				<div class="page-content-area">
+					<div class="page-header">
+						<h1>
+							组织机构
+							<small>
+								<i class="ace-icon fa fa-angle-double-right"></i>
+								管理组织机构
+							</small>
+						</h1>
+					</div>
+					<!-- /.page-header -->
+
+					<div class="row">
+						<div class="col-xs-12">
+							<!-- PAGE CONTENT BEGINS -->
+							<div class="row">
+								<div class="col-sm-12">
+									<div class="widget-box">
+										<div class="widget-header">
+											<h4 class="widget-title lighter smaller">组织机构列表</h4>
+											<div class="widget-toolbar">
+												<div class="widget-menu">
+													<div class="btn-group">
+														<button class="btn btn-primary" id="addOU">新增组织机构</button>
+
+														<button data-toggle="dropdown" class="btn btn-primary dropdown-toggle">
+															<span class="ace-icon fa fa-caret-down icon-only"></span>
+														</button>
+
+														<ul class="dropdown-menu dropdown-primary">
+															<li>
+																<a href="#" id="modifyOU">
+																	<i class="ace-icon fa fa-table"></i>
+																	修改组织机构
+																</a>
+															</li>
+
+															<li class="divider"></li>
+
+															<li>
+																<a href="#" id="deleteOU">
+																	<i class="ace-icon fa fa-table"></i>
+																	删除组织机构
+																</a>
+															</li>
+														</ul>
+													</div>
+												</div>
+
+												<a href="#" data-action="fullscreen" class="orange2">
+													<i class="ace-icon fa fa-expand"></i>
+												</a>
+
+												<a href="#" data-action="reload">
+													<i class="ace-icon fa fa-refresh"></i>
+												</a>
+
+												<a href="#" data-action="collapse">
+													<i class="ace-icon fa fa-chevron-up"></i>
+												</a>
+
+												<a href="#" data-action="close">
+													<i class="ace-icon fa fa-times"></i>
+												</a>
+											</div>
+										</div>
+
+										<div class="widget-body">
+											<div class="widget-main padding-8">
+												<div id="organization_tree" class="tree"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- PAGE CONTENT ENDS -->
+						</div>
+						<!-- /.col -->
+					</div>
+					<!-- /.row -->
+				</div>
+				<!-- /.page-content-area -->
+			</div>
+			<!-- /.page-content -->
+		</div>
+		<!-- /.main-content -->
+		{{template "layout/footer.html" .}}
+		<script src="/static/ace1.3.1/js/fuelux/data/fuelux.tree-sample-demo-data.js"></script>
+		<script src="/static/ace1.3.1/js/fuelux/fuelux.tree.min.js"></script>
+		<script src="/static/ace1.3.1/js/bootbox.min.js"></script>
+		<script type="text/javascript">
+		jQuery(function($){
+
+		var organizationTree = {};
+
+			organizationTree.data = function (options, callback) {
+				//console.log(options);
+				var pid=options.id||0;
+				$.ajax({
+					type:"get",
+					dataType:"json",
+					url:"/organizations",
+					data:"pid="+pid,
+					complete:function(){},
+					success:function(msg){
+						var data=[];
+						$.each(msg,function(index,value){
+							var type='item';
+							if(value.Status==0){
+								type='folder';
+							}
+							data.push({name:value.UnitName,type:type,id:value.Id})
+						});
+						callback({data:data});
+					}
+				});
+			};
+
+		$('#organization_tree').ace_tree({
+			dataSource: organizationTree,
+			multiSelect:true,
+			loadingHTML:'<div class="tree-loading"><i class="ace-icon fa fa-refresh fa-spin blue"></i></div>',
+			'open-icon' : 'ace-icon tree-minus',
+			'close-icon' : 'ace-icon tree-plus',
+			'selectable' : true,
+			'selected-icon' : 'ace-icon fa fa-check',
+			'unselected-icon' : 'ace-icon fa fa-times'
+		});
+
+		// $('#tree2').ace_tree({
+		// 	dataSource: treeDataSource2 ,
+		// 	loadingHTML:'<div class="tree-loading"><i class="ace-icon fa fa-refresh fa-spin blue"></i></div>',
+		// 	'open-icon' : 'ace-icon fa fa-folder-open',
+		// 	'close-icon' : 'ace-icon fa fa-folder',
+		// 	'selectable' : false,
+		// 	'selected-icon' : null,
+		// 	'unselected-icon' : null
+		// });
+		
+		
+		$('#tree1')
+		.on('updated', function(e, result) {
+			//result.info  >> an array containing selected items
+			//result.item
+			//result.eventType >> (selected or unselected)
+		})
+		.on('selected', function(e) {
+		})
+		.on('unselected', function(e) {
+		})
+		.on('opened', function(e) {
+		})
+		.on('closed', function(e) {
+		});
+
+
+
+		/**
+		$('#tree1').on('loaded', function (evt, data) {
+		});
+
+		$('#tree1').on('opened', function (evt, data) {
+		});
+
+		$('#tree1').on('closed', function (evt, data) {
+		});
+
+		$('#tree1').on('selected', function (evt, data) {
+		});
+		*/
+
+		$("#addOU").on('click', function() {
+   		bootbox.dialog({
+      message: '<form action="/organizations/add" method="post" id="add-organization-form" role="form"><div class="form-group"><label>所属区域<div id="organization1" class="select btn-group" data-resize="auto"><button type="button" data-toggle="dropdown" class="btn dropdown-toggle"><span class="dropdown-label"></span><span class="caret"></span></button><ul class="dropdown-menu"></ul></div></label></div><div class="form-group"><label>学校名称<input type="text" class="form-control" name="UnitName" placeholder="学校全称"></label></div><div class="form-group"><label>排序值<input type="number" class="form-control" name="SortRank" value=50 min=1 max=100></label></div><div class="form-group"><label>说明<input type="textarea" class="form-control" name="Remark"></label></div></form>',
+      title:"新增组织机构",
+      buttons:
+      {
+         "cancel" :
+         {
+            "label" : "取消",
+            "className" : "btn btn-default",
+            "callback": function() {
+                 //clicked, do something
+            }
+         },
+         "confirm" :
+         {
+             "label" : "确定",
+             "className" : "btn btn-primary",
+             "callback": function() {
+                 //clicked, do something
+             }
+         }
+      }
+   })
+})
+
+
+			// $('#ou-tree').on('loaded', function (e) {
+			// 	console.log('Loaded');
+			// });
+
+			// $('#ou-tree').on('selected', function (e, info) {
+			// 	console.log('Select Event: ', info);
+
+			// });
+
+			// $('#ou-tree').on('opened', function (e, info) {
+			// 	console.log('Open Event: ', info);
+			// });
+
+			// $('#ou-tree').on('closed', function (e, info) {
+			// 	console.log('Close Event: ', info);
+			// });
+
+			// $('#add').on('click',function (e) {
+			// 	console.log(e);
+			// 	console.log($('#ou-tree').tree('selectedItems'));
+			// 	//alert($('#ou-tree').tree('selectedItems')[0].id);
+			// })
+
+			//fetch organization list 
+			$.ajax({
+					type:"get",
+					dataType:"json",
+					url:"/organizations",
+					data:"pid=0",
+					complete:function(){},
+					success:function(msg){
+						$.each(msg,function(index,value){
+							if(index==0){
+								$('#organization1>ul').append('<li data-value="'+value.Id+'" data-selected="true"><a href="#">'+value.UnitName+'</a></li>');
+								$('#organization2>ul').append('<li data-value="'+value.Id+'" data-selected="true"><a href="#">'+value.UnitName+'</a></li>');
+							}else{
+								$('#organization1>ul').append('<li data-value="'+value.Id+'"><a href="#">'+value.UnitName+'</a></li>');
+								$('#organization2>ul').append('<li data-value="'+value.Id+'" data-selected="true"><a href="#">'+value.UnitName+'</a></li>');
+							}
+						});
+						//$('#organization').select();
+					}
+				});
+
+			//add organization
+			$('#addButton').on('click',function(e){
+				//console.log($('#add-organization-form')[0]['SortRank'].value);
+				//console.log($('#organization').select('selectedItem').value);
+				//console.log($('#add-organization-form').serialize()+"&pid="+$('#organization').select('selectedItem').value);
+				if($('#organization1').select('selectedItem').value==''){
+					alert('必须选择所属区域！');
+					return false;
+				}
+				if($('#add-organization-form')[0]['UnitName'].value==''){
+					alert('学校名称不能为空！');
+					return false;
+				}
+				if($('#add-organization-form')[0]['SortRank'].value<1 || $('#add-organization-form')[0]['SortRank'].value>100){
+					alert('排序值只能在1到100之间！');
+					return false;
+				}
+
+				$.ajax({
+					type:"post",
+					dataType:"json",
+					url:"/organizations/add",
+					data:$('#add-organization-form').serialize()+"&pid="+$('#organization1').select('selectedItem').value,
+					complete:function(){},
+					success:function(msg){
+						if(msg.Sueecss==true){
+							alert(msg.Msg);
+						}else{
+							alert(msg.Msg);
+							$('#addOU').modal('toggle');
+						}
+						//$('#organization').select();
+					}
+				});
+			});
+
+			// modify organization
+			$('#modify').on('click',function(e){
+				console.log($('#ou-tree').tree('selectedItems'));
+			});
+
+			$('#modifyButton').on('click',function(e){
+				//console.log($('#add-organization-form')[0]['SortRank'].value);
+				//console.log($('#organization').select('selectedItem').value);
+				//console.log($('#add-organization-form').serialize()+"&pid="+$('#organization').select('selectedItem').value);
+				if($('#organization2').select('selectedItem').value==''){
+					alert('必须选择所属区域！');
+					return false;
+				}
+				if($('#modify-organization-form')[0]['UnitName'].value==''){
+					alert('学校名称不能为空！');
+					return false;
+				}
+				if($('#modify-organization-form')[0]['SortRank'].value<1 || $('#add-organization-form')[0]['SortRank'].value>100){
+					alert('排序值只能在1到100之间！');
+					return false;
+				}
+
+				$.ajax({
+					type:"post",
+					dataType:"json",
+					url:"/organizations/modify",
+					data:$('#modify-organization-form').serialize()+"&pid="+$('#organization2').select('selectedItem').value,
+					complete:function(){},
+					success:function(msg){
+						if(msg.Sueecss==true){
+							alert(msg.Msg);
+						}else{
+							alert(msg.Msg);
+							$('#modifyOU').modal('toggle');
+						}
+						//$('#organization').select();
+					}
+				});
+			});
+
+});
+		</script>
+		<!--script src="/static/ace1.3.1/js/bootstrap.min.js">
+	</script-->
+</body>
+</html>

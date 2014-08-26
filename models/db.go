@@ -20,18 +20,6 @@ func SyncDB() {
 
 	ConnectDB()
 
-	o = orm.NewOrm()
-	// 数据库别名
-	name := "default"
-	// 强制重新建数据库
-	force := true
-	// 打印执行过程
-	verbose := true
-	// 遇到错误立即返回
-	err := orm.RunSyncdb(name, force, verbose)
-	if err != nil {
-		beego.Error(err)
-	}
 	// insertUser()
 	// insertGroup()
 	// insertRole()
@@ -50,28 +38,41 @@ func ConnectDB() {
 	db_path := beego.AppConfig.String("db::path")
 	db_sslmode := beego.AppConfig.String("db::sslmode")
 
-	var datasource string
+	var dsn string
 
 	switch db_type {
 	case "mysql":
 		orm.RegisterDriver("mysql", orm.DR_MySQL)
-		datasource = fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8", db_user, db_pass, db_host, db_port, db_name)
+		dsn = fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8", db_user, db_pass, db_host, db_port, db_name)
 		break
 	case "postgres":
 		orm.RegisterDriver("postgres", orm.DR_Postgres)
-		datasource = fmt.Sprintf("dbname=%s host=%s  user=%s  password=%s  port=%s  sslmode=%s", db_name, db_host, db_user, db_pass, db_port, db_sslmode)
+		dsn = fmt.Sprintf("dbname=%s host=%s  user=%s  password=%s  port=%s  sslmode=%s", db_name, db_host, db_user, db_pass, db_port, db_sslmode)
 	case "sqlite3":
 		orm.RegisterDriver("sqlite3", orm.DR_Sqlite)
 		if db_path == "" {
 			db_path = "./"
 		}
-		datasource = fmt.Sprintf("%s%s.db", db_path, db_name)
+		dsn = fmt.Sprintf("%s%s.db", db_path, db_name)
 		break
 	default:
 		beego.Critical("Database driver not support: ", db_type)
 	}
 
-	orm.RegisterDataBase("default", db_type, datasource)
+	orm.RegisterDataBase("default", db_type, dsn)
+
+	o = orm.NewOrm()
+	// 数据库别名
+	name := "default"
+	// 不强制重新建数据库
+	force := false
+	// 打印执行过程
+	verbose := true
+	// 遇到错误立即返回
+	err := orm.RunSyncdb(name, force, verbose)
+	if err != nil {
+		beego.Error(err)
+	}
 }
 
 //创建数据库
@@ -85,31 +86,31 @@ func createDB() {
 	db_path := beego.AppConfig.String("db::path")
 	db_sslmode := beego.AppConfig.String("db::sslmode")
 
-	var datasource string
+	var dsn string
 	var sqlstring string
 
 	switch db_type {
 	case "mysql":
-		datasource = fmt.Sprintf("%s:%s@tcp(%s:%s)/?charset=utf8", db_user, db_pass, db_host, db_port)
+		dsn = fmt.Sprintf("%s:%s@tcp(%s:%s)/?charset=utf8", db_user, db_pass, db_host, db_port)
 		sqlstring = fmt.Sprintf("CREATE DATABASE  if not exists `%s` CHARSET utf8 COLLATE utf8_general_ci", db_name)
 		break
 	case "postgres":
-		datasource = fmt.Sprintf("host=%s  user=%s  password=%s  port=%s  sslmode=%s", db_host, db_user, db_pass, db_port, db_sslmode)
+		dsn = fmt.Sprintf("host=%s  user=%s  password=%s  port=%s  sslmode=%s", db_host, db_user, db_pass, db_port, db_sslmode)
 		sqlstring = fmt.Sprintf("CREATE DATABASE %s", db_name)
 		break
 	case "sqlite3":
 		if db_path == "" {
 			db_path = "./"
 		}
-		datasource = fmt.Sprintf("%s%s.db", db_path, db_name)
-		os.Remove(datasource)
+		dsn = fmt.Sprintf("%s%s.db", db_path, db_name)
+		os.Remove(dsn)
 		sqlstring = "create table init (n varchar(32));drop table init;"
 		break
 	default:
 		beego.Critical("Database driver not support: ", db_type)
 	}
 
-	db, err := sql.Open(db_type, datasource)
+	db, err := sql.Open(db_type, dsn)
 	defer db.Close()
 	if err != nil {
 		panic(err.Error())
