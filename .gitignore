@@ -10,6 +10,8 @@ _test
 node_modules
 static/ace1.3.1
 static/html
+static/vendor
+survey
 
 # Architecture specific extensions/prefixes
 *.[568vq]

@@ -61,6 +61,9 @@ func ConnectDB() {
 
 	orm.RegisterDataBase("default", db_type, dsn)
 
+	//打印查询日志
+	orm.Debug, _ = beego.AppConfig.Bool("db::orm_debug")
+
 	o = orm.NewOrm()
 	// 数据库别名
 	name := "default"
