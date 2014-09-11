@@ -20,10 +20,10 @@ type User struct {
 	Id       int
 	UserName string `orm:"size(50)" form:"UserName" valid:"Required;MaxSize(50)"`
 	PassWord string `orm:"size(40)" form:"PassWord" valid:"Required;MaxSize(40)"`
-	RealName string `orm:"size(50)" form:"RealName" valid:"Required;MaxSize(50)"`
-	Mobile   string `orm:"size:(20)" form:"Mobile" valid:"Required;Mobile"`
-	Phone    string `orm:"size:(20)" form:"Phone" valid:"Phone"`
-	IdCard   string `orm:"size:(20)" form:"IdCard" valid:"Required;Match(/\d{17}[\dXx]{1}/)"`
+	RealName string `orm:"size(50);null" form:"RealName" valid:"Required;MaxSize(50)"`
+	Mobile   string `orm:"size:(20);null" form:"Mobile" valid:"Required;Mobile"`
+	Phone    string `orm:"size:(20);null" form:"Phone" valid:"Phone"`
+	IdCard   string `orm:"size:(20);null" form:"IdCard" valid:"Required;Match(/\d{17}[\dXx]{1}/)"`
 	//Avatar    string    `orm:"size(100)" form:"Avatar" valid:"MaxSize(100)"`
 	Created   time.Time         `orm:"auto_now_add;type(datetime)" form:"Created"`
 	Updated   time.Time         `orm:"auto_now;type(datetime)" form:"Created"`

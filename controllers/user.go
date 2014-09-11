@@ -3,6 +3,7 @@ package controllers
 import (
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
+	"github.com/kevinxu001/survey/lib"
 	"github.com/kevinxu001/survey/models"
 )
 
@@ -66,6 +67,62 @@ func (this *UserController) GetUsers() {
 	}
 
 	this.Data["json"] = &UserDataRsp{Draw: draw, RecordsTotal: recordsTotal, RecordsFiltered: recordsFiltered, Data: &users}
+	this.ServeJson()
+}
+
+func (this *UserController) Add() {
+	oid, err := this.GetInt("oid")
+	username := this.GetString("username")
+	realname := this.GetString("realname")
+	password := this.GetString("password")
+	confirmpassword := this.GetString("confirmpassword")
+	if password != confirmpassword {
+		this.Data["json"] = &Rsp{Success: false, Msg: "密码与确认密码不相同，插入数据出错！"}
+		this.ServeJson()
+		return
+	}
+	mobile := this.GetString("mobile")
+	phone := this.GetString("phone")
+	idcard := this.GetString("idcard")
+
+	o := orm.NewOrm()
+	qs := o.QueryTable("user")
+
+	num, _ := qs.Filter("username", username).Count()
+	if num > 0 {
+		this.Data["json"] = &Rsp{Success: false, Msg: "已有相同用户名的用户，插入数据出错！"}
+		this.ServeJson()
+		return
+	}
+
+	var organization models.OrganizationUnit
+	qsou := o.QueryTable("organization_unit")
+	err = qsou.Filter("id", oid).One(&organization)
+	if err != nil {
+		beego.Error(err)
+		this.Data["json"] = &Rsp{Success: false, Msg: "无法找到对应的组织机构，插入数据出错！"}
+		this.ServeJson()
+		return
+	}
+
+	var user models.User
+	user.OrgUnit = &organization
+	user.UserName = username
+	user.PassWord = lib.StrToMD5(password)
+	user.RealName = realname
+	user.Mobile = mobile
+	user.Phone = phone
+	user.IdCard = idcard
+
+	_, err = o.Insert(&user)
+	if err != nil {
+		beego.Error(err)
+		this.Data["json"] = &Rsp{Success: false, Msg: "无法新增组织机构，插入数据出错！"}
+		this.ServeJson()
+		return
+	}
+
+	this.Data["json"] = &Rsp{Success: true, Msg: "成功新增用户！"}
 	this.ServeJson()
 }
 

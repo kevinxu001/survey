@@ -76,7 +76,10 @@
 											<div class="widget-toolbar">
 												<div class="widget-menu">
 													<div class="btn-group">
-														<button class="btn btn-info btn-sm" data-toggle="modal" data-target="#addUser"><i class="ace-icon fa fa-user"></i>新增用户</button>
+														<button class="btn btn-info btn-sm" data-toggle="modal" data-target="#addUser">
+															<i class="ace-icon fa fa-user"></i>
+															新增用户
+														</button>
 
 														<button data-toggle="dropdown" class="btn btn-info btn-sm dropdown-toggle">
 															<span class="ace-icon fa fa-caret-down icon-only"></span>
@@ -162,23 +165,23 @@
 																	身份证
 																</th>
 																<!-- <th class="sorting">
-																	<i class="fa fa-fw fa-phone text-muted"></i>
-																	手机
-																</th> -->
-																<th data-hide="phone,tablet" class="sorting">
-																	<i class="fa fa-fw fa-clock-o"></i>
-																	最后登陆时间
-																</th>
-																<th class="sorting">
-																	<i class="fa fa-fw fa-eye"></i>
-																	状态
-																</th>
-															</tr>
-														</thead>
-														<tbody></tbody>
+																<i class="fa fa-fw fa-phone text-muted"></i>
+																手机
+															</th>
+															-->
+															<th data-hide="phone,tablet" class="sorting">
+																<i class="fa fa-fw fa-clock-o"></i>
+																最后登陆时间
+															</th>
+															<th class="sorting">
+																<i class="fa fa-fw fa-eye"></i>
+																状态
+															</th>
+														</tr>
+													</thead>
+													<tbody></tbody>
 
-													</table>
-												</div>
+												</table>
 											</div>
 										</div>
 									</div>
@@ -186,109 +189,231 @@
 							</div>
 						</div>
 					</div>
-					<!-- PAGE CONTENT ENDS -->
 				</div>
-				<!-- /.col -->
+				<!-- PAGE CONTENT ENDS -->
 			</div>
-			<!-- /.row -->
+			<!-- /.col -->
 		</div>
-		<!-- /.page-content-area -->
+		<!-- /.row -->
 	</div>
-	<!-- /.page-content -->
+	<!-- /.page-content-area -->
+</div>
+<!-- /.page-content -->
 </div>
 <!-- /.main-content -->
 
-<!-- addOU.modal -->
-<div id="addOU" class="modal fade">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">
-					<span aria-hidden="true">&times;</span>
-					<span class="sr-only">关闭</span>
-				</button>
-				<h4 class="modal-title">新增组织机构</h4>
-			</div>
-			<div class="modal-body">
-				<form id="add_organization_form" role="form" class="form-horizontal">
+<!-- addUser.modal -->
+<div id="addUser" class="modal fade">
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">
+				<span aria-hidden="true">&times;</span>
+				<span class="sr-only">关闭</span>
+			</button>
+			<h4 class="modal-title">新增用户</h4>
+		</div>
+		<div class="modal-body no-padding-top">
+			<div class="row">
+				<form id="add_user_form">
 					<div class="form-group">
-						<label class="col-sm-3 control-label no-padding-right" for="add_organization">上级组织机构:</label>
-						<div class="col-sm-9">
-							<input type="hidden" id="add_organization" name="Pid"></div>
+						<div class="col-sm-12">
+							<label for="add_organization">所属组织机构</label>
+							<div class="input-group">
+								<input type="hidden" id="add_organization" name="oid" style="width:570px"></div>
+						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-sm-3 control-label no-padding-right" for="add_unitname">组织机构名称:</label>
-						<div class="col-sm-9">
-							<input type="text" id="add_unitname" name="UnitName" placeholder="组织机构全称" class="col-xs-10 col-sm-8"></div>
+						<div class="col-sm-6">
+							<label for="add_username">用户名</label>
+							<div class="input-group">
+								<input type="text" id="add_username" name="username" placeholder="登陆用户名" class="form-control">
+								<span class="input-group-addon">
+									<i class="ace-icon fa fa-user"></i>
+								</span>
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<label for="add_realname">真实姓名</label>
+							<div class="input-group">
+								<input type="text" id="add_realname" name="realname" placeholder="真实姓名" class="form-control">
+								<span class="input-group-addon">
+									<i class="ace-icon fa fa-user"></i>
+								</span>
+							</div>
+						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-sm-3 control-label no-padding-right" for="add_sortrank">排序值:</label>
-						<div class="col-sm-9">
-							<input type="number" class="col-xs-10 col-sm-8" id="add_sortrank" name="SortRank" value=50 min=1 max=100></div>
+						<div class="col-sm-6">
+							<label for="add_password">密码</label>
+							<div class="input-group">
+								<input type="password" id="add_password" name="password" placeholder="密码" class="form-control">
+								<span class="input-group-addon">
+									<i class="ace-icon fa fa-lock"></i>
+								</span>
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<label for="add_confirmpassword">确认密码</label>
+							<div class="input-group">
+								<input type="password" id="add_confirmpassword" name="confirmpassword" placeholder="确认密码" class="form-control">
+								<span class="input-group-addon">
+									<i class="ace-icon fa fa-lock"></i>
+								</span>
+							</div>
+						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-sm-3 control-label no-padding-right" for="add_remark">说明:</label>
-						<div class="col-sm-9">
-							<input type="textarea" class="col-xs-10 col-sm-8" id="add_remark" name="Remark"></div>
+						<div class="col-sm-6">
+							<label for="add_mobile">手机</label>
+							<div class="input-group">
+								<input type="text" id="add_mobile" name="mobile" placeholder="手机号" class="form-control">
+								<span class="input-group-addon">
+									<i class="ace-icon fa fa-mobile"></i>
+								</span>
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<label for="add_phone">电话</label>
+							<div class="input-group">
+								<input type="text" id="add_phone" name="phone" placeholder="手机或固定电话号码" class="form-control">
+								<span class="input-group-addon">
+									<i class="ace-icon fa fa-phone"></i>
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-12">
+							<label for="add_idcard">身份证</label>
+							<div class="input-group">
+								<input type="text" id="add_idcard" name="idcard" placeholder="身份证号" class="form-control">
+								<span class="input-group-addon">
+									<i class="ace-icon fa fa-credit-card"></i>
+								</span>
+							</div>
+						</div>
 					</div>
 				</form>
 			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-				<button type="button" class="btn btn-primary" id="addButton">新增</button>
-			</div>
 		</div>
-		<!-- /.modal-content -->
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">关闭</button>
+			<button type="button" class="btn btn-primary btn-sm" id="addButton">新增</button>
+		</div>
 	</div>
-	<!-- /.modal-dialog -->
+	<!-- /.modal-content -->
 </div>
-<!-- /addOU.modal -->
-<!-- modifyOU.modal -->
-<div id="modifyOU" class="modal fade">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">
-					<span aria-hidden="true">&times;</span>
-					<span class="sr-only">关闭</span>
-				</button>
-				<h4 class="modal-title">新增组织机构</h4>
-			</div>
-			<div class="modal-body">
-				<form id="modify_organization_form" role="form" class="form-horizontal">
-					<input type="hidden" id="modify_id" name="id">
+<!-- /.modal-dialog -->
+</div>
+<!-- /addUser.modal -->
+
+<!-- modifyUser.modal -->
+<div id="modifyUser" class="modal fade">
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">
+				<span aria-hidden="true">&times;</span>
+				<span class="sr-only">关闭</span>
+			</button>
+			<h4 class="modal-title">编辑用户</h4>
+		</div>
+		<div class="modal-body no-padding-top">
+			<div class="row">
+				<form id="modify_user_form">
 					<div class="form-group">
-						<label class="col-sm-3 control-label no-padding-right" for="modify_organization">上级组织机构:</label>
-						<div class="col-sm-9">
-							<input type="hidden" id="modify_organization" name="Pid"></div>
+						<div class="col-sm-12">
+							<label for="modify_organization">所属组织机构</label>
+							<div class="input-group">
+								<input type="hidden" id="modify_organization" name="oid" style="width:570px"></div>
+						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-sm-3 control-label no-padding-right" for="modify_unitname">组织机构名称:</label>
-						<div class="col-sm-9">
-							<input type="text" id="modify_unitname" name="UnitName" placeholder="组织机构全称" class="col-xs-10 col-sm-8"></div>
+						<div class="col-sm-6">
+							<label for="modify_username">用户名</label>
+							<div class="input-group">
+								<input type="text" id="modify_username" name="username" placeholder="登陆用户名" class="form-control">
+								<span class="input-group-addon">
+									<i class="ace-icon fa fa-user"></i>
+								</span>
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<label for="modify_realname">真实姓名</label>
+							<div class="input-group">
+								<input type="text" id="modify_realname" name="realname" placeholder="真实姓名" class="form-control">
+								<span class="input-group-addon">
+									<i class="ace-icon fa fa-user"></i>
+								</span>
+							</div>
+						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-sm-3 control-label no-padding-right" for="modify_sortrank">排序值:</label>
-						<div class="col-sm-9">
-							<input type="number" class="col-xs-10 col-sm-8" id="modify_sortrank" name="SortRank" value=50 min=1 max=100></div>
+						<div class="col-sm-6">
+							<label for="modify_password">密码</label>
+							<div class="input-group">
+								<input type="password" id="modify_password" name="password" placeholder="密码不修改留空" class="form-control">
+								<span class="input-group-addon">
+									<i class="ace-icon fa fa-lock"></i>
+								</span>
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<label for="modify_confirmpassword">确认密码</label>
+							<div class="input-group">
+								<input type="password" id="modify_confirmpassword" name="confirmpassword" placeholder="确认密码也可留空" class="form-control">
+								<span class="input-group-addon">
+									<i class="ace-icon fa fa-lock"></i>
+								</span>
+							</div>
+						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-sm-3 control-label no-padding-right" for="modify_remark">说明:</label>
-						<div class="col-sm-9">
-							<input type="textarea" class="col-xs-10 col-sm-8" id="modify_remark" name="Remark"></div>
+						<div class="col-sm-6">
+							<label for="modify_mobile">手机</label>
+							<div class="input-group">
+								<input type="text" id="modify_mobile" name="mobile" placeholder="手机号" class="form-control">
+								<span class="input-group-addon">
+									<i class="ace-icon fa fa-mobile"></i>
+								</span>
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<label for="modify_phone">电话</label>
+							<div class="input-group">
+								<input type="text" id="modify_phone" name="phone" placeholder="手机或固定电话号码" class="form-control">
+								<span class="input-group-addon">
+									<i class="ace-icon fa fa-phone"></i>
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-12">
+							<label for="modify_idcard">身份证</label>
+							<div class="input-group">
+								<input type="text" id="modify_idcard" name="idcard" placeholder="身份证号" class="form-control">
+								<span class="input-group-addon">
+									<i class="ace-icon fa fa-credit-card"></i>
+								</span>
+							</div>
+						</div>
 					</div>
 				</form>
 			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-				<button type="button" class="btn btn-primary" id="modifyButton">修改</button>
-			</div>
 		</div>
-		<!-- /.modal-content -->
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">关闭</button>
+			<button type="button" class="btn btn-primary btn-sm" id="modifyButton">确认</button>
+		</div>
 	</div>
-	<!-- /.modal-dialog -->
+	<!-- /.modal-content -->
 </div>
-<!-- /modifyOU.modal -->
+<!-- /.modal-dialog -->
+</div>
+<!-- /modifyUser.modal -->
+
 {{template "layout/footer.html" .}}
 <script src="/static/ace1.3.1/js/fuelux/fuelux.tree.min.js"></script>
 <script src="/static/ace1.3.1/js/bootbox.min.js"></script>
@@ -434,9 +559,9 @@ $('#tree1').on('selected', function (evt, data) {
 		"bSort":false,
 		"ajax":{
 			"url":"/api/users",
-			"data":{
-				oid:0,
-			},
+			// "data":{
+			// 	oid:0,
+			// },
 			"dataSrc":function(json){
 				return json.data;
 			}
@@ -531,42 +656,60 @@ $('#tree1').on('selected', function (evt, data) {
 	*/
 
 	$('.dt-toolbar').append('<div class="ui-pg-div">'
-		+'<span class="ui-icon ace-icon fa fa-plus-circle purple" data-rel="tooltip" title="" data-original-title="新增用户"></span> '
-		+'<span class="ui-icon ace-icon fa fa-pencil blue" data-rel="tooltip" title="" data-original-title="编辑所选用户"></span> '
-		+'<span class="ui-icon ace-icon fa fa-search-plus grey" data-rel="tooltip" title="" data-original-title="查看所选用户"></span> '
-		+'<span class="ui-icon ace-icon fa fa-trash-o red" data-rel="tooltip" title="" data-original-title="删除所选用户"></span> '
+		+'<span class="ui-icon ace-icon fa fa-plus-circle purple" data-rel="tooltip" title="" data-original-title="新增用户" id="addBtn"></span> '
+		+'<span class="ui-icon ace-icon fa fa-pencil blue" data-rel="tooltip" title="" data-original-title="编辑所选用户" id="modifyBtn"></span> '
+		+'<span class="ui-icon ace-icon fa fa-search-plus grey" data-rel="tooltip" title="" data-original-title="查看所选用户" id="viewBtn"></span> '
+		+'<span class="ui-icon ace-icon fa fa-trash-o red" data-rel="tooltip" title="" data-original-title="删除所选用户" id="deleteBtn"></span> '
 		// +'<span class="ui-icon ace-icon fa fa-search orange"></span> '
-		+'<span class="ui-icon ace-icon fa fa-refresh green" data-rel="tooltip" title="" data-original-title="刷新"></span> '
+		+'<span class="ui-icon ace-icon fa fa-refresh green" data-rel="tooltip" title="" data-original-title="刷新" id="reloadBtn"></span> '
 		+'</div>');
 
 	$('[data-rel=tooltip]').tooltip();
 
-	$(document).on('click', 'th input:checkbox' , function(){
+	$(document).on('click', '#user-table th input:checkbox' , function(){
 		var that = this;
-		$(this).closest('table').find('tr > td:first-child input:checkbox')
+		$(this).closest('#user-table').find('tr > td:first-child input:checkbox')
 		.each(function(){
 			this.checked = that.checked;
-			$(this).closest('tr').toggleClass('selected');
+			$(this).closest('#user-table tr').toggleClass('selected');
 		});
 	});
+	$('#user-table').delegate('tr > td:first-child input:checkbox','click',function(){
+		//var ctr=$(this).closest('#user-table tr');
+		// $(this).parent().parent().parent().toggleClass('selected');
+		// console.log($(this).parent().parent().parent());
+		//console.log($(this).closest('#user-table tr'));
+		//console.log(ctr);
+		// ctr.toogleClass('odd');
+		// ctr.toogleClass('even');
+		//ctr.toogleClass('selected');
+		$(this).parent().parent().parent().toggleClass('selected');
+		// var userTable=$('#user-table').DataTable();
+		// console.log(userTable.rows('.selected').data().length);
+	});
 	
-	//选中某个组织机构节点时更新用户列表
-	$('#organization-tree').on('selected',function(e,data){
+	//更新用户数据表函数
+	function loadUsers(e,data){
 		//console.log(data);
 		//console.log(userTable);
 		//alert(data.info[0].id);
+		//判断是目录还是节点确定对应的id
+		var id=data.id||data.info[0].id;
+		//alert(id);
 		//载入新的表格数据
 		$.ajax({
 			type:"get",
 			dataType:"json",
 			url:"/api/users",
-			"data":{
-				oid:data.info[0].id,
-			},
+			// "data":{
+			// 	oid:id,
+			// },
 			success:function(json){
 				var userTable=$('#user-table').dataTable();
 				var oSettings=userTable.fnSettings();
-				oSettings['ajax']['data']={oid:data.info[0].id};
+				if(id>=0){
+					oSettings['ajax']['data']={oid:id};
+				}
 				//console.log(oSettings);
 				//清空datatables
 				userTable.fnClearTable(this);
@@ -577,106 +720,186 @@ $('#tree1').on('selected', function (evt, data) {
 				userTable.fnDraw();
 			}
 		});
+	}
+	//选中某个组织机构节点时更新用户列表
+	$('#organization-tree').on('selected',loadUsers);
+	//$('#organization-tree').on('unselected',loadUsers);
+	$('#organization-tree').on('opened',loadUsers);
+	$('#organization-tree').on('closed',loadUsers);
+
+	//新增用户
+	$('#addUser').on('show.bs.modal',function(e){
+		//console.log($('#user-table').find('tr > td:first-child input:checkbox').length);
+		//$('#add_organization').val(1);
+		//初始化所属组织机构列表
+		$('#add_organization').select2({
+			placeholder:"输入选择所属组织机构",
+			minimumInputLength:1,
+			ajax:{
+				url:"/api/organizations",
+				dataType:"json",
+				quietMillis: 300,
+				data:function(term,page){
+					return {
+						q:term,
+						page_limit:10,
+						page:page
+					};
+				},
+				results:function(data,page){
+					var retdata=[];
+					$.each(data,function(index,value){
+						retdata.push({id:value.Id,text:value.UnitName});
+					});
+					return {results:retdata};
+				}
+			},
+			// initSelection:function(element,callback){
+			// 	var id=$(element).val();
+			// 	if(id!==""){
+			// 		$.ajax("/api/organizations/"+id,{
+			// 			// data:{
+			// 			// 	pid:0
+			// 			// },
+			// 			dataType:"json"
+			// 		}).done(function(data){
+			// 			var retdata={id:data[0].Id,text:data[0].UnitName};
+			// 			callback(retdata);
+			// 		});
+			// 	}
+			// },
+			//formatResult:formatResult,
+			//formatSelection:formatSelection,
+			dropdownCssClass:"bigdrop",
+			escapeMarkup:function(m){return m;}
+		});
 	});
 
-	//add organization
-	$('#addOU').modal({
+	$('#addBtn').click(function(){
+		$('#addUser').modal('show');
+	});
+	$('#addUser').modal({
 		"backdrop":"static",
 		"keyboard":true,
 		"show":false,
 	});
-	//初始化上级组织机构列表
-	$('#addorganization').select2({
-		placeholder:"输入选择上级组织机构",
-		minimumInputLength:1,
-		ajax:{
-			url:"/api/organizations",
-			dataType:"json",
-			quietMillis: 300,
-			data:function(term,page){
-				return {
-					"q":term,
-					"page_limit":10,
-					"page":page
-				};
-			},
-			results:function(data,page){
-				var retdata=[];
-				$.each(data,function(index,value){
-					retdata.push({id:value.Id,text:value.UnitName});
-				});
-				return {results:retdata};
-			}
-		},
-		// initSelection:function(element,callback){
-		// 	//var id=$(element).val();
-		// 	//if(id!==""){
-		// 		console.log("yes");
-		// 		$.ajax("/api/organizations/0",{
-		// 			// data:{
-		// 			// 	pid:0
-		// 			// },
-		// 			dataType:"json"
-		// 		}).done(function(data){
-		// 			var retdata=[];
-		// 			$.each(data,function(index,value){
-		// 				retdata.push({id:value.Id,text:value.UnitName});
-		// 			});
-		// 			console.log(retdata);
-		// 			callback(retdata);
-		// 		});
-		// 	//}
-		// },
-		//formatResult:formatResult,
-		//formatSelection:formatSelection,
-		//dropdownCssClass:"bigdrop",
-		escapeMarkup:function(m){return m;}
-	});
+	
 	//新增按钮点击
 	$('#addButton').on('click',function(e){
 		//console.log($('#add-organization-form')[0]['SortRank'].value);
 		//console.log($('#organization').select('selectedItem').value);
 		//console.log($('#add-organization-form').serialize()+"&pid="+$('#organization').select('selectedItem').value);
-		if($('#add_unitname').val()==''){
-			alert('组织机构名称不能为空！');
+		if($('#add_username').val()==''){
+			alert('用户名不能为空！');
 			return false;
 		}
-		if($('#add_sortrank').val()<1 || $('#add_sortrank').val()>100){
-			alert('排序值只能在1到100之间！');
+		// if($('#add_realname').val()==''){
+		// 	alert('真实姓名不能为空！');
+		// 	return false;
+		// }
+		if($('#add_password').val()==''){
+			alert('密码不能为空！');
 			return false;
 		}
+		if($('#add_confirmpassword').val()=='' || $('#add_confirmpassword').val()!=$('#add_password').val()){
+			alert('确认密码与密码不相同！');
+			return false;
+		}
+		// if($('#add_mobile').val()==''){
+		// 	alert('手机号不能为空！');
+		// 	return false;
+		// }
+		// if($('#add_phone').val()==''){
+		// 	alert('电话号不能为空！');
+		// 	return false;
+		// }
+		// if($('#add_idcard').val()==''){
+		// 	alert('身份证号不能为空！');
+		// 	return false;
+		// }
+		// if($('#add_sortrank').val()<1 || $('#add_sortrank').val()>100){
+		// 	alert('排序值只能在1到100之间！');
+		// 	return false;
+		// }
 
 		$.ajax({
 			type:"post",
 			dataType:"json",
-			url:"/api/organizations/add",
-			data:$('#add_organization_form').serialize(),
+			url:"/api/users/add",
+			data:$('#add_user_form').serialize(),
 			complete:function(){},
 			success:function(msg){
 				if(msg.Sueecss==true){
 					alert(msg.Msg);
 				}else{
 					alert(msg.Msg);
-					$('#addOU').modal('toggle');
+					$('#addUser').modal('toggle');
 				}
-				//$('#organization').select();
+				//重新加载表格数据
+				loadUsers(undefined,{id:-1});
 			}
 		});
 	});
 
-	// modify organization
+	// 编辑用户
+	$('#modifyUser').on('show.bs.modal',function(e){
+		var userTable=$('#user-table').DataTable();
+		//console.log(userTable.rows('.selected').data().length);
 
-	$('#modifyOU').modal({
-		"backdrop":"static",
-		"keyboard":true,
-		"show":false,
-	});
-	$('#modify').on('click',function(e){
-		console.log($('#organization_tree').tree('selectedItems'));
-		if($('#organization_tree').tree('selectedItems').length!=1){
-			alert('必须选择要修改的组织机构，而且只能选择一个组织机构！');
+		//载入对应的用户信息
+		if(userTable.rows('.selected').data().length!=1){
+			alert('必须选择要编辑的用户，而且只能选择一个用户！');
 			return false;
 		}else{
+			console.log($('#organization_tree').tree('selectedItems'));
+			var id=$('#organization_tree').tree('selectedItems')[0].id || $('#organization_tree').tree('selectedItems')[0].id || 0;
+			console.log(id);
+			$('#modify_organization').val($('#organization_tree').tree('selectedItems')[0].id);
+
+			return false;
+			//初始化所属组织机构列表
+			$('#modify_organization').select2({
+				placeholder:"输入选择所属组织机构",
+				minimumInputLength:1,
+				ajax:{
+					url:"/api/organizations",
+					dataType:"json",
+					quietMillis: 300,
+					data:function(term,page){
+						return {
+							q:term,
+							page_limit:10,
+							page:page
+						};
+					},
+					results:function(data,page){
+						var retdata=[];
+						$.each(data,function(index,value){
+							retdata.push({id:value.Id,text:value.UnitName});
+						});
+						return {results:retdata};
+					}
+				},
+				initSelection:function(element,callback){
+					var id=$(element).val();
+					if(id!==""){
+						$.ajax("/api/organizations/"+id,{
+							// data:{
+							// 	pid:0
+							// },
+							dataType:"json"
+						}).done(function(data){
+							var retdata={id:data[0].Id,text:data[0].UnitName};
+							callback(retdata);
+						});
+					}
+				},
+				//formatResult:formatResult,
+				//formatSelection:formatSelection,
+				dropdownCssClass:"bigdrop",
+				escapeMarkup:function(m){return m;}
+			});
+			//
 			$('#modify_id').val($('#organization_tree').tree('selectedItems')[0].id);
 			//$.ajax("/api/organizations/0",{
 		// 			// data:{
@@ -704,87 +927,72 @@ $('#tree1').on('selected', function (evt, data) {
 			return true;
 		}
 	});
-	//初始化上级组织机构列表
-	$('#modify_organization').select2({
-		placeholder:"输入修改上级组织机构",
-		minimumInputLength:1,
-		ajax:{
-			url:"/api/organizations",
-			dataType:"json",
-			quietMillis: 300,
-			data:function(term,page){
-				return {
-					"q":term,
-					"page_limit":10,
-					"page":page
-				};
-			},
-			results:function(data,page){
-				var retdata=[];
-				$.each(data,function(index,value){
-					retdata.push({id:value.Id,text:value.UnitName});
-				});
-				return {results:retdata};
-			}
-		},
-		// initSelection:function(element,callback){
-		// 	//var id=$(element).val();
-		// 	//if(id!==""){
-		// 		console.log("yes");
-		// 		$.ajax("/api/organizations/0",{
-		// 			// data:{
-		// 			// 	pid:0
-		// 			// },
-		// 			dataType:"json"
-		// 		}).done(function(data){
-		// 			var retdata=[];
-		// 			$.each(data,function(index,value){
-		// 				retdata.push({id:value.Id,text:value.UnitName});
-		// 			});
-		// 			console.log(retdata);
-		// 			callback(retdata);
-		// 		});
-		// 	//}
-		// },
-		//formatResult:formatResult,
-		//formatSelection:formatSelection,
-		//dropdownCssClass:"bigdrop",
-		escapeMarkup:function(m){return m;}
+	$('#modifyBtn').click(function(){
+		//var userTable=$('#user-table').DataTable();
+		//console.log(userTable.rows('.selected').data());
+		$('#modifyUser').modal('show');
 	});
+	$('#modifyUser').modal({
+		"backdrop":"static",
+		"keyboard":true,
+		"show":false,
+	});
+	
 	// click modifyButton
 	$('#modifyButton').on('click',function(e){
 		//console.log($('#add-organization-form')[0]['SortRank'].value);
 		//console.log($('#organization').select('selectedItem').value);
 		//console.log($('#add-organization-form').serialize()+"&pid="+$('#organization').select('selectedItem').value);
-		if($('#modify_unitname').val()==''){
-			alert('组织机构名称不能为空！');
+		if($('#modify_username').val()==''){
+			alert('用户名不能为空！');
 			return false;
 		}
-		if($('#modify_sortrank').val()<1 || $('#modify_sortrank').val()>100){
-			alert('排序值只能在1到100之间！');
+		// if($('#modify_realname').val()==''){
+		// 	alert('真实姓名不能为空！');
+		// 	return false;
+		// }
+		if($('#modify_password').val()==''){
+			alert('密码不能为空！');
 			return false;
 		}
+		if($('#modify_confirmpassword').val()=='' || $('#modify_confirmpassword').val()!=$('#modify_password').val()){
+			alert('确认密码与密码不相同！');
+			return false;
+		}
+		// if($('#modify_mobile').val()==''){
+		// 	alert('手机号不能为空！');
+		// 	return false;
+		// }
+		// if($('#modify_phone').val()==''){
+		// 	alert('电话号不能为空！');
+		// 	return false;
+		// }
+		// if($('#modify_idcard').val()==''){
+		// 	alert('身份证号不能为空！');
+		// 	return false;
+		// }
 
 		$.ajax({
 			type:"post",
 			dataType:"json",
-			url:"/api/organizations/modify",
-			data:$('#modify_organization_form').serialize(),
+			url:"/api/users/modify",
+			data:$('#modify_user_form').serialize(),
 			complete:function(){},
 			success:function(msg){
-				if(msg.Sueecss){
+				if(msg.Sueecss==true){
 					alert(msg.Msg);
 				}else{
 					alert(msg.Msg);
-					$('#modifyOU').modal('toggle');
+					$('#modifyUser').modal('toggle');
 				}
-				//$('#organization').select();
+				//重新加载表格数据
+				loadUsers(undefined,{id:-1});
 			}
 		});
 	});
 
 	// delete organization
-	$('#deleteOU').on('click',function(e){
+	$('#deleteUser').on('click',function(e){
 		if($('#organization_tree').tree('selectedItems').length==0){
 			alert('必须选择要删除的组织机构！');
 			return false;
