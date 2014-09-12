@@ -89,7 +89,7 @@
 															<li>
 																<a href="#" id="modify" data-toggle="modal" data-target="#modifyUser">
 																	<i class="ace-icon fa fa-user"></i>
-																	修改用户
+																	编辑用户
 																</a>
 															</li>
 
@@ -322,6 +322,7 @@
 		<div class="modal-body no-padding-top">
 			<div class="row">
 				<form id="modify_user_form">
+					<input type="hidden" id="modify_id" name="id">
 					<div class="form-group">
 						<div class="col-sm-12">
 							<label for="modify_organization">所属组织机构</label>
@@ -617,9 +618,9 @@ $('#tree1').on('selected', function (evt, data) {
 				"mRender":function(data,type,full){
 					var rdata='';
 					if(data==1){
-						rdata='<span class="label label-success">正常</span>';
-					}else{
 						rdata='<span class="label label-default">禁用</span>';
+					}else{
+						rdata='<span class="label label-success">正常</span>';
 					}
 					return rdata;
 				}
@@ -697,6 +698,7 @@ $('#tree1').on('selected', function (evt, data) {
 		var id=data.id||data.info[0].id;
 		//alert(id);
 		//载入新的表格数据
+		//$('#user-table').dataTable().ajax.reload(null,false);
 		$.ajax({
 			type:"get",
 			dataType:"json",
@@ -851,12 +853,11 @@ $('#tree1').on('selected', function (evt, data) {
 			alert('必须选择要编辑的用户，而且只能选择一个用户！');
 			return false;
 		}else{
-			console.log($('#organization_tree').tree('selectedItems'));
-			var id=$('#organization_tree').tree('selectedItems')[0].id || $('#organization_tree').tree('selectedItems')[0].id || 0;
-			console.log(id);
-			$('#modify_organization').val($('#organization_tree').tree('selectedItems')[0].id);
-
-			return false;
+			//var userTable=$('#user-table').dataTable();
+			//var oSettings=userTable.fnSettings();
+			//var id=oSettings['ajax']['data'] ? oSettings['ajax']['data'].oid : 0;
+			//console.log(userTable.rows('.selected').data());
+			$('#modify_organization').val(userTable.rows('.selected').data()[0].OrgUnit.Id);
 			//初始化所属组织机构列表
 			$('#modify_organization').select2({
 				placeholder:"输入选择所属组织机构",
@@ -882,7 +883,8 @@ $('#tree1').on('selected', function (evt, data) {
 				},
 				initSelection:function(element,callback){
 					var id=$(element).val();
-					if(id!==""){
+					if(id>0){
+						//console.log(id);
 						$.ajax("/api/organizations/"+id,{
 							// data:{
 							// 	pid:0
@@ -899,29 +901,20 @@ $('#tree1').on('selected', function (evt, data) {
 				dropdownCssClass:"bigdrop",
 				escapeMarkup:function(m){return m;}
 			});
-			//
-			$('#modify_id').val($('#organization_tree').tree('selectedItems')[0].id);
-			//$.ajax("/api/organizations/0",{
-		// 			// data:{
-		// 			// 	pid:0
-		// 			// },
-		// 			dataType:"json"
-		// 		}).done(function(data){
-		// 			var retdata=[];
-		// 			$.each(data,function(index,value){
-		// 				retdata.push({id:value.Id,text:value.UnitName});
-		// 			});
-		// 			console.log(retdata);
-		// 			callback(retdata);
-		// 		});
-			$.ajax("/api/organizations/"+$('#organization_tree').tree('selectedItems')[0].id,{
+			//根据用户id载入用户信息
+			var userTable=$('#user-table').DataTable();
+			//console.log(userTable.rows('.selected').data()[0].Id);
+
+			$.ajax("/api/users/"+userTable.rows('.selected').data()[0].Id,{
 				dataType:"json"
 			}).done(function(data){
 				//console.log(data);
-				$('#modify_id').attr("value",data[0].Id);
-				$('#modify_unitname').attr("value",data[0].UnitName);
-				$('#modify_sortrank').attr("value",data[0].SortRank);
-				$('#modify_remark').attr("value",data[0].Remark);
+				$('#modify_id').attr("value",data.Id)
+				$('#modify_username').attr("value",data.UserName);
+				$('#modify_realname').attr("value",data.RealName);
+				$('#modify_mobile').attr("value",data.Mobile);
+				$('#modify_phone').attr("value",data.Phone);
+				$('#modify_idcard').attr("value",data.IdCard);
 			});
 			//$('#modify_unitname').attr("value",$('#organization_tree').tree('selectedItems')[0].name);
 			return true;
@@ -951,11 +944,11 @@ $('#tree1').on('selected', function (evt, data) {
 		// 	alert('真实姓名不能为空！');
 		// 	return false;
 		// }
-		if($('#modify_password').val()==''){
-			alert('密码不能为空！');
-			return false;
-		}
-		if($('#modify_confirmpassword').val()=='' || $('#modify_confirmpassword').val()!=$('#modify_password').val()){
+		// if($('#modify_password').val()==''){
+		// 	alert('密码不能为空！');
+		// 	return false;
+		// }
+		if($('#modify_confirmpassword').val()!='' || $('#modify_confirmpassword').val()!=$('#modify_password').val()){
 			alert('确认密码与密码不相同！');
 			return false;
 		}
@@ -991,14 +984,17 @@ $('#tree1').on('selected', function (evt, data) {
 		});
 	});
 
-	// delete organization
-	$('#deleteUser').on('click',function(e){
-		if($('#organization_tree').tree('selectedItems').length==0){
-			alert('必须选择要删除的组织机构！');
+	// delete user
+	function deleteUsers(){
+		var userTable=$('#user-table').DataTable();
+		//console.log(userTable.rows('.selected').data().length);
+
+		if(userTable.rows('.selected').data().length==0){
+			alert('必须选择要删除的用户！');
 			return false;
 		}else{
 			bootbox.confirm({
-				message:"确认删除组织机构吗？",
+				message:"确认删除用户吗？",
 				title:"",
 				buttons:{
 					cancel:{
@@ -1012,24 +1008,25 @@ $('#tree1').on('selected', function (evt, data) {
 				},
 				callback:function(result){
 					if(result){
-						var ids='';
-						for(var i=0;i<$('#organization_tree').tree('selectedItems').length;i++){
-							if(i==0){
-								ids+=$('#organization_tree').tree('selectedItems')[i].id;
-							}else{
-								ids+=','+$('#organization_tree').tree('selectedItems')[i].id;
-							}
+						var userTable=$('#user-table').DataTable();
+						//console.log(userTable.rows('.selected').data());
+						var idlist=[];
+						for(var i=0;i<userTable.rows('.selected').data().length;i++){
+							idlist.push(userTable.rows('.selected').data()[i].Id);
 						}
+						var ids=idlist.join(",");
 						//console.log(ids);
 						$.ajax({
 							type:"post",
 							dataType:"json",
-							url:"/api/organizations/delete",
+							url:"/api/users/delete",
 							data:{
 								"ids":ids
 							},
 							complete:function(){},
 							success:function(msg){
+								//重新加载表格数据
+								loadUsers(undefined,{id:-1});
 								alert(msg.Msg);
 							}
 						});
@@ -1037,6 +1034,18 @@ $('#tree1').on('selected', function (evt, data) {
 				}
 			});
 		}
+	}
+	$('#deleteBtn').on('click',function(e){
+		deleteUsers();
+	});
+	$('#deleteUser').on('click',function(e){
+		deleteUsers();
+	});
+
+	// reload user
+	$('#reloadBtn').on('click',function(e){
+		//重新加载表格数据
+		loadUsers(undefined,{id:-1});
 	});
 
 });

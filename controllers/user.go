@@ -5,6 +5,7 @@ import (
 	"github.com/astaxie/beego/orm"
 	"github.com/kevinxu001/survey/lib"
 	"github.com/kevinxu001/survey/models"
+	"strconv"
 )
 
 type UserController struct {
@@ -117,7 +118,7 @@ func (this *UserController) Add() {
 	_, err = o.Insert(&user)
 	if err != nil {
 		beego.Error(err)
-		this.Data["json"] = &Rsp{Success: false, Msg: "无法新增组织机构，插入数据出错！"}
+		this.Data["json"] = &Rsp{Success: false, Msg: "无法新增用户，插入数据出错！"}
 		this.ServeJson()
 		return
 	}
@@ -126,6 +127,107 @@ func (this *UserController) Add() {
 	this.ServeJson()
 }
 
-func (this *UserController) AdminList() {
-	this.TplNames = "user/adminlist.html"
+func (this *UserController) GetUserById() {
+	id, err := strconv.Atoi(this.Ctx.Input.Param(":id"))
+	if err != nil {
+		beego.Error(err)
+		this.Data["json"] = &Rsp{Success: false, Msg: "无法获取用户信息！"}
+		this.ServeJson()
+		return
+	}
+
+	o := orm.NewOrm()
+	qs := o.QueryTable("user")
+
+	var user models.User
+	qs.Filter("id", id).One(&user)
+
+	this.Data["json"] = &user
+	this.ServeJson()
+}
+
+func (this *UserController) Modify() {
+	id, err := this.GetInt("id")
+	o := orm.NewOrm()
+	qs := o.QueryTable("user")
+
+	var user models.User
+	err = qs.Filter("id", id).One(&user)
+	if err != nil {
+		beego.Error(err)
+		this.Data["json"] = &Rsp{Success: false, Msg: "用户数据不存在，编辑用户失败！"}
+		this.ServeJson()
+		return
+	}
+
+	oid, _ := this.GetInt("oid")
+	username := this.GetString("username")
+	realname := this.GetString("realname")
+	password := this.GetString("password")
+	confirmpassword := this.GetString("confirmpassword")
+	if password != confirmpassword {
+		this.Data["json"] = &Rsp{Success: false, Msg: "密码与确认密码不相同，编辑用户出错！"}
+		this.ServeJson()
+		return
+	}
+	mobile := this.GetString("mobile")
+	phone := this.GetString("phone")
+	idcard := this.GetString("idcard")
+
+	if user.UserName != username {
+		num, _ := qs.Filter("username", username).Count()
+		if num > 0 {
+			this.Data["json"] = &Rsp{Success: false, Msg: "已有相同用户名的用户，编辑用户出错！"}
+			this.ServeJson()
+			return
+		}
+	}
+
+	var organization models.OrganizationUnit
+	qsou := o.QueryTable("organization_unit")
+	err = qsou.Filter("id", oid).One(&organization)
+	if err != nil {
+		beego.Error(err)
+		this.Data["json"] = &Rsp{Success: false, Msg: "无法找到对应的组织机构，编辑用户出错！"}
+		this.ServeJson()
+		return
+	}
+
+	user.OrgUnit = &organization
+	user.UserName = username
+	if password != "" {
+		user.PassWord = lib.StrToMD5(password)
+	}
+	user.RealName = realname
+	user.Mobile = mobile
+	user.Phone = phone
+	user.IdCard = idcard
+
+	_, err = o.Update(&user)
+	if err != nil {
+		beego.Error(err)
+		this.Data["json"] = &Rsp{Success: false, Msg: "编辑用户出错！"}
+		this.ServeJson()
+		return
+	}
+
+	this.Data["json"] = &Rsp{Success: true, Msg: "成功编辑用户！"}
+	this.ServeJson()
+}
+
+func (this *UserController) Delete() {
+	ids := this.GetString("ids")
+
+	o := orm.NewOrm()
+
+	_, err := o.Raw("delete from `user` where id in (" + ids + ")").Exec()
+	if err != nil {
+		beego.Error(err)
+		this.Data["json"] = &Rsp{Success: false, Msg: "删除用户出错！"}
+		this.ServeJson()
+		return
+	}
+
+	this.Data["json"] = &Rsp{Success: true, Msg: "成功删除用户！"}
+	this.ServeJson()
 }

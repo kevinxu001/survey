@@ -44,6 +44,13 @@
 			</a> <b class="arrow"></b>
 		</li>
 
+		<li class="{{if .isSurveys}}active{{end}}">
+			<a href="/surveys">
+				<i class="menu-icon fa fa-pencil-square-o"></i>
+				<span class="menu-text">信息化达标率调研</span>
+			</a> <b class="arrow"></b>
+		</li>
+
 		<li class="{{if .isSystemAdmin}}active open{{end}}">
 			<a href="#" class="dropdown-toggle">
 				<i class="menu-icon fa fa-cogs"></i>
@@ -66,6 +73,15 @@
 					<a href="/users">
 						<i class="menu-icon fa fa-user"></i>
 						用户
+					</a>
+
+					<b class="arrow"></b>
+				</li>
+
+				<li class="{{if .isReports}}active{{end}}">
+					<a href="/reports">
+						<i class="menu-icon fa fa-bar-chart"></i>
+						报表
 					</a>
 
 					<b class="arrow"></b>

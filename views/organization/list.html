@@ -595,14 +595,11 @@
 						},
 						callback:function(result){
 							if(result){
-								var ids='';
+								var idlist=[];
 								for(var i=0;i<$('#organization_tree').tree('selectedItems').length;i++){
-									if(i==0){
-										ids+=$('#organization_tree').tree('selectedItems')[i].id;
-									}else{
-										ids+=','+$('#organization_tree').tree('selectedItems')[i].id;
-									}
+									idlist.push($('#organization_tree').tree('selectedItems')[i].id);
 								}
+								var ids=idlist.join(",");
 								//console.log(ids);
 								$.ajax({
 									type:"post",

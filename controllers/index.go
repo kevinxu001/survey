@@ -6,6 +6,7 @@ type IndexController struct {
 	CommonController
 }
 
+	Day    string
 func (this *IndexController) Get() {
 	this.TplNames = "index.html"
 }
