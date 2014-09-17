@@ -444,7 +444,7 @@
 					data:$('#add_organization_form').serialize(),
 					complete:function(){},
 					success:function(msg){
-						if(msg.Sueecss==true){
+						if(msg.Success==false){
 							alert(msg.Msg);
 						}else{
 							alert(msg.Msg);
@@ -563,7 +563,7 @@
 					data:$('#modify_organization_form').serialize(),
 					complete:function(){},
 					success:function(msg){
-						if(msg.Sueecss){
+						if(msg.Success==false){
 							alert(msg.Msg);
 						}else{
 							alert(msg.Msg);

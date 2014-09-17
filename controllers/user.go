@@ -6,6 +6,7 @@ import (
 	"github.com/kevinxu001/survey/lib"
 	"github.com/kevinxu001/survey/models"
 	"strconv"
+	"time"
 )
 
 type UserController struct {
@@ -202,6 +203,7 @@ func (this *UserController) Modify() {
 	user.Mobile = mobile
 	user.Phone = phone
 	user.IdCard = idcard
+	user.Updated = time.Now()
 
 	_, err = o.Update(&user)
 	if err != nil {

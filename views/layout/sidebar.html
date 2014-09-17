@@ -51,6 +51,7 @@
 			</a> <b class="arrow"></b>
 		</li>
 
+		{{if .isAdminUser}}
 		<li class="{{if .isSystemAdmin}}active open{{end}}">
 			<a href="#" class="dropdown-toggle">
 				<i class="menu-icon fa fa-cogs"></i>
@@ -88,6 +89,7 @@
 				</li>
 			</ul>
 		</li>
+		{{end}}
 
 
 	</ul>

@@ -19,17 +19,19 @@ type SurveyClass struct {
 	Id         int
 	Pid        int         `orm:"default(0)" form:"Pid" valid:"Numeric"`
 	ClassName  string      `orm:"size(60)" form:"ClassName" valid:"Required;MaxSize(60)"`
-	Desc       string      `orm:"null;size(200)" form:"Desc" valid:"MaxSize(200)"`
+	ClassDesc  string      `orm:"null;type(text)" form:"ClassDesc" valid:"MaxSize(1000)"`
+	SortRank   int         `orm:"default(1)" form:"SortRank" valid:"Range(1,100)"`
 	SurveyTask *SurveyTask `orm:"rel(fk)"`
 }
 
 type SurveyItem struct {
 	Id          int
-	ItemName    string       `orm:"size(60)" form:"ItemName" valid:"Required;MaxSize(60)"`
-	Desc        string       `orm:"null;size(200)" form:"Desc" valid:"MaxSize(200)"`
+	ItemName    string       `orm:"null;size(60)" form:"ItemName" valid:"Required;MaxSize(60)"`
+	ItemDesc    string       `orm:"null;type(text)" form:"ItemDesc" valid:"MaxSize(1000)"`
 	PointMin    float32      `orm:"default(0.0)" form:"PointMin" valid:"Numeric"`
 	PointMax    float32      `orm:"default(5.0)" form:"PointMax" valid:"Numeric"`
 	PointStep   float32      `orm:"default(1.0)" form:"PointStep" valid:"Numeric"`
+	SortRank    int          `orm:"default(1)" form:"SortRank" valid:"Range(1,100)"`
 	SurveyTask  *SurveyTask  `orm:"rel(fk)"`
 	SurveyClass *SurveyClass `orm:"rel(fk)"`
 }

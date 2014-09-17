@@ -10,7 +10,9 @@
 	<div id="navbar" class="navbar navbar-default">
 		<script type="text/javascript">try{ace.settings.check('navbar' , 'fixed')}catch(e){}</script>
 
-		<div class="navbar-container" id="navbar-container">{{template "layout/navbar.html" .}}</div>
+		<div class="navbar-container" id="navbar-container">
+			{{template "layout/navbar.html" .}}
+		</div>
 		<!-- /.navbar-container -->
 	</div>
 
@@ -831,7 +833,7 @@ $('#tree1').on('selected', function (evt, data) {
 			data:$('#add_user_form').serialize(),
 			complete:function(){},
 			success:function(msg){
-				if(msg.Sueecss==true){
+				if(msg.Success==false){
 					alert(msg.Msg);
 				}else{
 					alert(msg.Msg);
@@ -972,7 +974,7 @@ $('#tree1').on('selected', function (evt, data) {
 			data:$('#modify_user_form').serialize(),
 			complete:function(){},
 			success:function(msg){
-				if(msg.Sueecss==true){
+				if(msg.Success==false){
 					alert(msg.Msg);
 				}else{
 					alert(msg.Msg);

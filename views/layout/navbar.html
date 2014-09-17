@@ -281,7 +281,7 @@
 							<img class="nav-user-photo" src="/static/ace1.3.1/avatars/user.jpg" alt="Jason's Photo" />
 							<span class="user-info">
 								<small>欢迎，</small>
-								管理员
+								{{.Realname}}
 							</span>
 
 							<i class="ace-icon fa fa-caret-down"></i>
@@ -305,7 +305,7 @@
 							<li class="divider"></li>
 
 							<li>
-								<a href="#">
+								<a href="/api/logout">
 									<i class="ace-icon fa fa-power-off"></i>
 									退出
 								</a>

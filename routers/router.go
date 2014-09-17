@@ -6,8 +6,13 @@ import (
 )
 
 func init() {
+	beego.Router("/login", &controllers.LoginController{})
+	beego.Router("/api/login", &controllers.LoginController{}, "*:Login")
+	beego.Router("/api/logout", &controllers.LoginController{}, "*:Logout")
+
 	beego.Router("/", &controllers.IndexController{})
 	beego.Router("/dashboard", &controllers.IndexController{}, "get:Dashboard")
+	beego.Router("/errorpage/:errno:int", &controllers.IndexController{}, "get:ErrorPage")
 	//beego.Router("/blank", &controllers.IndexController{}, "get:Blank")
 
 	beego.Router("/organizations", &controllers.OrganizationController{}, "*:Get")
@@ -26,6 +31,7 @@ func init() {
 
 	beego.Router("/surveys", &controllers.SurveyController{}, "*:Get")
 	beego.Router("/surveys/:id:int", &controllers.SurveyController{}, "*:GetSurveyById")
+	beego.Router("/surveys/:id:int/fillin", &controllers.SurveyController{}, "*:FillinSurveyById")
 
 	// beego.Router("/login", &controllers.LoginController{}, "get:Get;post:Post")
 	// beego.Router("/logout", &controllers.LoginController{}, "*:Logout")

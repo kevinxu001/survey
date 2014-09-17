@@ -44,6 +44,7 @@ func ConnectDB() {
 	case "mysql":
 		orm.RegisterDriver("mysql", orm.DR_MySQL)
 		dsn = fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8", db_user, db_pass, db_host, db_port, db_name)
+		dsn += "&loc=Asia%2FShanghai"
 		break
 	case "postgres":
 		orm.RegisterDriver("postgres", orm.DR_Postgres)
@@ -94,7 +95,8 @@ func createDB() {
 
 	switch db_type {
 	case "mysql":
-		dsn = fmt.Sprintf("%s:%s@tcp(%s:%s)/?charset=utf8", db_user, db_pass, db_host, db_port)
+		dsn = fmt.Sprintf("%s:%s@tcp(%s:%s)/?charset=utf8&loc=Asia%2FShanghai", db_user, db_pass, db_host, db_port)
+		dsn += "&loc=Asia%2FShanghai"
 		sqlstring = fmt.Sprintf("CREATE DATABASE  if not exists `%s` CHARSET utf8 COLLATE utf8_general_ci", db_name)
 		break
 	case "postgres":
