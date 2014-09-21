@@ -32,7 +32,10 @@ func init() {
 	beego.Router("/surveys", &controllers.SurveyController{}, "*:Get")
 	beego.Router("/surveys/:id:int", &controllers.SurveyController{}, "*:GetSurveyById")
 	beego.Router("/surveys/:id:int/fillin", &controllers.SurveyController{}, "*:FillinSurveyById")
+	beego.Router("/api/surveys/:id:int", &controllers.SurveyController{}, "*:PostSurveyById")
 
-	// beego.Router("/login", &controllers.LoginController{}, "get:Get;post:Post")
-	// beego.Router("/logout", &controllers.LoginController{}, "*:Logout")
+	beego.Router("/api/files", &controllers.FileController{}, "post:UploadFiles")
+	beego.Router("/api/files/:id:int", &controllers.FileController{}, "*:DownloadFileById")
+	beego.Router("/api/files/:id:int/delete", &controllers.FileController{}, "*:DeleteFileById")
+
 }

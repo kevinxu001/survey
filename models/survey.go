@@ -36,6 +36,15 @@ type SurveyItem struct {
 	SurveyClass *SurveyClass `orm:"rel(fk)"`
 }
 
+type SurveyData struct {
+	Id         int
+	ItemPoint  float32      `orm:"default(0.0)" form:"Point" valid:"Numeric"`
+	SurveyTask *SurveyTask  `orm:"rel(fk)"`
+	FirstClass *SurveyClass `orm:"rel(fk)"`
+	SurveyItem *SurveyItem  `orm:"rel(fk)"`
+	User       *User        `orm:"rel(fk)"`
+}
+
 // func (o *OrganizationUnit) TableName() string {
 // 	return "organization_unit"
 // }
@@ -53,5 +62,5 @@ type SurveyItem struct {
 // }
 
 func init() {
-	orm.RegisterModelWithPrefix(beego.AppConfig.String("tableprefix"), new(SurveyTask), new(SurveyClass), new(SurveyItem))
+	orm.RegisterModelWithPrefix(beego.AppConfig.String("tableprefix"), new(SurveyTask), new(SurveyClass), new(SurveyItem), new(SurveyData))
 }

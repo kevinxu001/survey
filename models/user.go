@@ -26,7 +26,7 @@ type User struct {
 	IdCard   string `orm:"size:(20);null" form:"IdCard" valid:"Required;Match(/\d{17}[\dXx]{1}/)"`
 	//Avatar    string    `orm:"size(100)" form:"Avatar" valid:"MaxSize(100)"`
 	Created   time.Time         `orm:"auto_now_add;type(datetime)" form:"Created"`
-	Updated   time.Time         `orm:"auto_now;type(datetime)" form:"Created"`
+	Updated   time.Time         `orm:"auto_now;type(datetime)" form:"Updated"`
 	LastLogin time.Time         `orm:"type(datetime)"`
 	Status    uint8             `orm:"default(0)" form:"Status" valid:"Range(0，1)"`
 	OrgUnit   *OrganizationUnit `orm:"rel(fk)"`
