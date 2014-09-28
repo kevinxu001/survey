@@ -46,6 +46,9 @@ func (this *SurveyController) GetSurveyById() {
 		this.Data["errorMsg"] = "只有注册用户才能参与填报，请退出并重新登录！"
 		return
 	}
+	//读取用户的组织机构
+	o.Read(user.OrgUnit)
+	this.Data["OrganizationUnitName"] = user.OrgUnit.UnitName
 
 	//一级分类的名称及总填报项目数和本用户已填报项目数
 	type ClassCount struct {
@@ -67,20 +70,34 @@ func (this *SurveyController) GetSurveyById() {
 		ItemSum      float32
 	}
 	var itemsums []ItemSum
-	_, err = o.Raw("SELECT first_class_id,sum(item_point) as item_sum FROM `survey_data` WHERE survey_task_id=? and user_id=? group by first_class_id order by first_class_id asc", surveytask.Id, user.Id).QueryRows(&itemsums)
+	_, err = o.Raw("SELECT first_class_id,sum(item_point) as item_sum FROM `survey_data` WHERE survey_task_id=? and organization_unit_id=? group by first_class_id order by first_class_id asc", surveytask.Id, user.OrgUnit.Id).QueryRows(&itemsums)
 
 	for _, itemsum := range itemsums {
 		t := classFilledSum[itemsum.FirstClassId]
 		t.FilledSum = itemsum.ItemSum
 		classFilledSum[itemsum.FirstClassId] = t
 	}
+	//增加总分和当前总得分
+	var totalsum orm.ParamsList
+	_, err = o.Raw("SELECT sum(point_max) as total FROM `survey_item` WHERE survey_task_id=?", surveytask.Id).ValuesFlat(&totalsum)
+	var total string
+	total, ok = totalsum[0].(string)
+
+	var allsum orm.ParamsList
+	_, err = o.Raw("SELECT sum(item_point) as item_sum FROM `survey_data` WHERE survey_task_id=? and organization_unit_id=?", surveytask.Id, user.OrgUnit.Id).ValuesFlat(&allsum)
+	var sumf float64
+	if sum, ok := allsum[0].(string); ok {
+		sumf, _ = strconv.ParseFloat(sum, 32)
+	}
+
+	classFilledSum[0] = ClassCount{FirstClassDesc: "总分(" + total + "分)", FilledSum: float32(sumf)}
 
 	this.Data["ClassFilledSum"] = &classFilledSum
 
 	//读取已上传文件信息
 	qsfile := o.QueryTable("file")
 	var uploadfiles []models.File
-	_, err = qsfile.Filter("user__id", user.Id).Filter("surveytask__id", surveytask.Id).All(&uploadfiles)
+	_, err = qsfile.Filter("organizationunit__id", user.OrgUnit.Id).Filter("surveytask__id", surveytask.Id).All(&uploadfiles)
 	if err != nil {
 		beego.Error(err)
 	}
@@ -154,6 +171,7 @@ func (this *SurveyController) FillinSurveyById() {
 		this.Data["errorMsg"] = "只有注册用户才能参与填报，请退出并重新登录！"
 		return
 	}
+	o.Read(user.OrgUnit)
 	//读取用户已填报的数据，并建立对应的map数据返回页面，如果没有填报的数据，则对应的point为该项最大值
 	var itemValues = make(map[int]float32, len(sitems))
 	for _, v := range sitems {
@@ -162,7 +180,7 @@ func (this *SurveyController) FillinSurveyById() {
 
 	qsdata := o.QueryTable("survey_data")
 	var filledData []models.SurveyData
-	_, err = qsdata.Filter("user__id", user.Id).Filter("surveytask__id", taskid).All(&filledData)
+	_, err = qsdata.Filter("organizationunit__id", user.OrgUnit.Id).Filter("surveytask__id", taskid).All(&filledData)
 	if err != nil {
 		beego.Error(err)
 	}
@@ -202,6 +220,27 @@ func (this *SurveyController) FillinSurveyById() {
 	}
 
 	this.Data["SecondClassMaps"] = &secondClassMaps
+}
+
+func (this *SurveyController) GetSurveys() {
+	//根据select2传入的q参数查找对应taskname的调研任务并返回数据
+	q := this.GetString("q")
+	pageLimit, _ := this.GetInt("page_limit")
+	page, _ := this.GetInt("page")
+
+	o := orm.NewOrm()
+	qs := o.QueryTable("survey_task")
+
+	var surveyTasks []models.SurveyTask
+
+	if q != "" {
+		qs.Filter("taskname__icontains", q).Limit(pageLimit, (page-1)*pageLimit).All(&surveyTasks)
+	} else {
+		qs.All(&surveyTasks)
+	}
+
+	this.Data["json"] = surveyTasks
+	this.ServeJson()
 }
 
 func (this *SurveyController) PostSurveyById() {
@@ -254,9 +293,12 @@ func (this *SurveyController) PostSurveyById() {
 		this.Data["errorMsg"] = "只有注册用户才能参与填报，请退出并重新登录！"
 		return
 	}
+	//读取用户的组织机构信息
+	o.Read(user.OrgUnit)
+
 	qsdata := o.QueryTable("survey_data")
 	var filledData []models.SurveyData
-	_, err = qsdata.Filter("user__id", user.Id).Filter("surveytask__id", taskid).RelatedSel().All(&filledData, "id")
+	_, err = qsdata.Filter("organizationunit__id", user.OrgUnit.Id).Filter("surveytask__id", taskid).RelatedSel().All(&filledData, "id")
 
 	if err != nil {
 		beego.Error(err)
@@ -289,6 +331,7 @@ func (this *SurveyController) PostSurveyById() {
 		sData.SurveyTask = sTask
 		sData.FirstClass = sClass
 		sData.SurveyItem = sItem
+		sData.OrganizationUnit = user.OrgUnit
 		sData.User = &user
 		surveydatas = append(surveydatas, sData)
 	}

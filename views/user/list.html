@@ -950,7 +950,7 @@ $('#tree1').on('selected', function (evt, data) {
 		// 	alert('密码不能为空！');
 		// 	return false;
 		// }
-		if($('#modify_confirmpassword').val()!='' || $('#modify_confirmpassword').val()!=$('#modify_password').val()){
+		if($('#modify_confirmpassword').val()!='' && $('#modify_confirmpassword').val()!=$('#modify_password').val()){
 			alert('确认密码与密码不相同！');
 			return false;
 		}

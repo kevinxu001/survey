@@ -37,12 +37,13 @@ type SurveyItem struct {
 }
 
 type SurveyData struct {
-	Id         int
-	ItemPoint  float32      `orm:"default(0.0)" form:"Point" valid:"Numeric"`
-	SurveyTask *SurveyTask  `orm:"rel(fk)"`
-	FirstClass *SurveyClass `orm:"rel(fk)"`
-	SurveyItem *SurveyItem  `orm:"rel(fk)"`
-	User       *User        `orm:"rel(fk)"`
+	Id               int
+	ItemPoint        float32           `orm:"default(0.0)" form:"Point" valid:"Numeric"`
+	SurveyTask       *SurveyTask       `orm:"rel(fk)"`
+	FirstClass       *SurveyClass      `orm:"rel(fk)"`
+	SurveyItem       *SurveyItem       `orm:"rel(fk)"`
+	OrganizationUnit *OrganizationUnit `orm:"rel(fk)"`
+	User             *User             `orm:"rel(fk)"`
 }
 
 // func (o *OrganizationUnit) TableName() string {

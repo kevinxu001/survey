@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	{{template "layout/header.html" .}}
+	<link rel="stylesheet" href="/static/ace1.3.1/css/select2.css" />
+
+</head>
+
+<body class="no-skin">
+	<!-- #section:basics/navbar.layout -->
+	<div id="navbar" class="navbar navbar-default">
+		<script type="text/javascript">try{ace.settings.check('navbar' , 'fixed')}catch(e){}</script>
+
+		<div class="navbar-container" id="navbar-container">{{template "layout/navbar.html" .}}</div>
+		<!-- /.navbar-container -->
+	</div>
+
+	<!-- /section:basics/navbar.layout -->
+	<div class="main-container" id="main-container">
+		<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+		{{template "layout/sidebar.html" .}}
+		<div class="main-content">
+			<!-- #section:basics/content.breadcrumbs -->
+			<div class="breadcrumbs" id="breadcrumbs">
+				<script type="text/javascript">try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}</script>
+
+				<ul class="breadcrumb">
+					<li> <i class="ace-icon fa fa-home home-icon"></i>
+						<a href="#">主页</a>
+					</li>
+
+					<li>
+						<a href="#">报表管理</a>
+					</li>
+					<li class="active">生成报表数据</li>
+				</ul>
+				<!-- /.breadcrumb -->
+
+				<!-- #section:basics/content.searchbox -->
+				<div class="nav-search" id="nav-search">
+					<form class="form-search">
+						<span class="input-icon">
+							<input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" /> <i class="ace-icon fa fa-search nav-search-icon"></i>
+						</span>
+					</form>
+				</div>
+				<!-- /.nav-search -->
+
+				<!-- /section:basics/content.searchbox -->
+			</div>
+
+			<!-- /section:basics/content.breadcrumbs -->
+			<div class="page-content">
+				{{template "layout/acesetting.html"}}
+				<div class="page-content-area">
+					<div class="page-header">
+						<h1>
+							生成报表数据
+							<small>
+								<i class="ace-icon fa fa-angle-double-right"></i>
+								根据已上报数据生成报表
+							</small>
+						</h1>
+					</div>
+					<!-- /.page-header -->
+
+					<div class="row">
+						<div class="col-xs-12">
+							<!-- PAGE CONTENT BEGINS -->
+
+							<div class="row">
+								<div class="col-sm-12">
+									<div class="widget-box" id="organization_widget">
+										<div class="widget-header">
+											<h4 class="widget-title lighter smaller">生成报表数据</h4>
+											<div class="widget-toolbar">
+
+												<select id="widget-colorpicker" class="hide">
+													<option selected="" data-class="blue" value="#307ECC">#307ECC</option>
+													<option data-class="blue2" value="#5090C1">#5090C1</option>
+													<option data-class="blue3" value="#6379AA">#6379AA</option>
+													<option data-class="green" value="#82AF6F">#82AF6F</option>
+													<option data-class="green2" value="#2E8965">#2E8965</option>
+													<option data-class="green3" value="#5FBC47">#5FBC47</option>
+													<option data-class="red" value="#E2755F">#E2755F</option>
+													<option data-class="red2" value="#E04141">#E04141</option>
+													<option data-class="red3" value="#D15B47">#D15B47</option>
+													<option data-class="orange" value="#FFC657">#FFC657</option>
+													<option data-class="purple" value="#7E6EB0">#7E6EB0</option>
+													<option data-class="pink" value="#CE6F9E">#CE6F9E</option>
+													<option data-class="dark" value="#404040">#404040</option>
+													<option data-class="grey" value="#848484">#848484</option>
+													<option data-class="default" value="#EEE">#EEE</option>
+												</select>
+
+												<a href="#" data-action="fullscreen" class="orange2">
+													<i class="ace-icon fa fa-expand"></i>
+												</a>
+
+												<!-- <a href="#" data-action="reload">
+												<i class="ace-icon fa fa-refresh"></i>
+											</a>
+											-->
+											<a href="#" data-action="collapse">
+												<i class="ace-icon fa fa-chevron-up"></i>
+											</a>
+
+											<a href="#" data-action="close">
+												<i class="ace-icon fa fa-times"></i>
+											</a>
+										</div>
+									</div>
+
+									<div class="widget-body">
+										<div class="widget-main padding-8">
+											<div class="row">
+
+												<div class="col-md-offset-4 col-md-8 form-group">
+													<label class="col-sm-2 control-label no-padding-right" for="taskid">调研任务:</label>
+													<div class="col-sm-10">
+														<input type="hidden" id="taskid" name="taskid"></div>
+												</div>
+
+												<div class="col-md-offset-5 col-md-7">
+													<button id="makeBtn" href="#" class="btn btn-info">
+														<i class="ace-icon fa fa-check bigger-110"></i>
+														开始生成
+													</button>
+												</div>
+
+											</div>
+
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- PAGE CONTENT ENDS -->
+					</div>
+					<!-- /.col -->
+				</div>
+				<!-- /.row -->
+			</div>
+			<!-- /.page-content-area -->
+		</div>
+		<!-- /.page-content -->
+	</div>
+	<!-- /.main-content -->
+	{{template "layout/footer.html" .}}
+	<script src="/static/ace1.3.1/js/select2.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+
+			$('#widget-colorpicker').ace_colorpicker({pull_right:true}).on('change', function(){
+				$(this).next().css("padding","0 8px").css("background-color","#fff");
+
+				var color_class = $(this).find('option:selected').data('class');
+				var new_class = 'widget-box';
+				if(color_class != 'default')  new_class += ' widget-color-'+color_class;
+				$(this).closest('.widget-box').attr('class', new_class);
+			});
+
+			//初始化调研任务列表
+			$('#taskid').select2({
+				placeholder:"请选择调研任务来生成对应报表数据",
+				minimumInputLength:0,
+				ajax:{
+					url:"/api/surveys",
+					dataType:"json",
+					quietMillis: 300,
+					data:function(term,page){
+						return {
+							"q":term,
+							"page_limit":10,
+							"page":page
+						};
+					},
+					results:function(data,page){
+						var retdata=[];
+						$.each(data,function(index,value){
+							retdata.push({id:value.Id,text:value.TaskName});
+						});
+						return {results:retdata};
+					}
+				},
+				// initSelection:function(element,callback){
+				// 	var id=$(element).val();
+				// 	if(id!==""){
+				// 		$.ajax("/api/surveys",{
+				// 			// data:{
+				// 			// 	pid:0
+				// 			// },
+				// 			dataType:"json"
+				// 		}).done(function(data){
+				// 			var retdata=[];
+				// 			$.each(data,function(index,value){
+				// 				retdata.push({id:value.Id,text:value.TaskName});
+				// 			});
+				// 			console.log(retdata);
+				// 			callback(retdata);
+				// 		});
+				// 	}
+				// },
+				// formatResult: function(obj){return obj[opts.textField]},  
+				// formatSelection:function(obj){return obj[opts.textField]},  
+				dropdownCssClass:"bigdrop",
+				escapeMarkup:function(m){return m;}
+			});
+
+			$('#makeBtn').on('click',function(){
+				var taskid=$('#taskid').val();
+				if (taskid==""){
+					alert("请选择要生成报表数据的调研任务！");
+					return false;
+				}
+
+				$.ajax({
+					type:"post",
+					dataType:"json",
+					url:"/api/reports/make/"+taskid,
+					// data:$('#login-form').serialize(),
+					complete:function(){},
+					success:function(msg){
+						if(msg.Success==true){
+							alert(msg.Msg);
+							// window.location="/";
+						}else{
+							//$('#login-form #username').val('');
+							// $('#login-form #password').val('');
+							// $('#login-form #password').focus();
+							alert(msg.Msg);
+						}
+						//$('#organization').select();
+					}
+				});
+			});
+
+		});
+	</script>
+
+	<!--script src="/static/ace1.3.1/js/bootstrap.min.js">
+</script-->
+</body>
+</html>

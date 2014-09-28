@@ -18,7 +18,7 @@ func (this *OrganizationController) Get() {
 }
 
 func (this *OrganizationController) GetOrganizations() {
-	//根据select2传入的q参数查行类似unitname的查找并返回数据
+	//根据select2传入的q参数查找类似unitname的查找并返回数据
 	q := this.GetString("q")
 	pageLimit, _ := this.GetInt("page_limit")
 	page, _ := this.GetInt("page")

@@ -73,6 +73,7 @@ func (this *FileController) UploadFiles() {
 		this.ServeJson()
 		return
 	}
+	o.Read(user.OrgUnit)
 
 	//存储上传的文件
 	file, fileHeader, err := this.GetFile("upload-file")
@@ -118,8 +119,9 @@ func (this *FileController) UploadFiles() {
 		taskfile.FileSize = int(sizeInterface.Size())
 	}
 	taskfile.SurveyTask = &surveytask
+	taskfile.OrganizationUnit = user.OrgUnit
 	taskfile.User = &user
-	beego.Info(taskfile)
+
 	fileid, err := o.Insert(taskfile)
 	if err != nil {
 		beego.Error(err)
@@ -157,7 +159,7 @@ func (this *FileController) DownloadFileById() {
 	o := orm.NewOrm()
 	qsfile := o.QueryTable("file")
 	var file models.File
-	err = qsfile.Filter("user__id", user.Id).Filter("id", fileid).One(&file)
+	err = qsfile.Filter("organizationunit__id", user.OrgUnit.Id).Filter("id", fileid).One(&file)
 	if err != nil {
 		beego.Error(err)
 		this.Data["json"] = &FileRsp{Success: false, Msg: "找不到文件的数据库信息！"}
@@ -210,11 +212,13 @@ func (this *FileController) DeleteFileById() {
 		return
 	}
 
-	//读取出文件信息
 	o := orm.NewOrm()
+	o.Read(user.OrgUnit)
+
+	//读取出文件信息
 	qsfile := o.QueryTable("file")
 	var file models.File
-	err = qsfile.Filter("user__id", user.Id).Filter("id", fileid).One(&file)
+	err = qsfile.Filter("organizationunit__id", user.OrgUnit.Id).Filter("id", fileid).One(&file)
 	if err != nil {
 		beego.Error(err)
 		this.Data["json"] = &FileRsp{Success: false, Msg: "找不到文件的数据库信息！"}
